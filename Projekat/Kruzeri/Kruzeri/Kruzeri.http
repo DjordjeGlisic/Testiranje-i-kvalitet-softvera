@@ -1,0 +1,6 @@
+@Kruzeri_HostAddress = http://localhost:5130
+
+GET {{Kruzeri_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

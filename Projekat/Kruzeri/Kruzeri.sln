@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kruzeri", "Kruzeri\Kruzeri.csproj", "{DB54D97B-8870-4190-9D98-6F763C158C95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KruzeriNunit", "KruzeriNunit\KruzeriNunit.csproj", "{333C711B-AB82-4832-BC71-BA76C8E00438}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB54D97B-8870-4190-9D98-6F763C158C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB54D97B-8870-4190-9D98-6F763C158C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB54D97B-8870-4190-9D98-6F763C158C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB54D97B-8870-4190-9D98-6F763C158C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333C711B-AB82-4832-BC71-BA76C8E00438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333C711B-AB82-4832-BC71-BA76C8E00438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333C711B-AB82-4832-BC71-BA76C8E00438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333C711B-AB82-4832-BC71-BA76C8E00438}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4111BE77-B241-47B6-A602-21CE08A11F60}
+	EndGlobalSection
+EndGlobal
