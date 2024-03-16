@@ -123,7 +123,7 @@ const CitajAzuriraj=()=>
                     
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='ime'>
                                 {korisnik.ime}
                             </h1>
                         </Item>
@@ -131,71 +131,38 @@ const CitajAzuriraj=()=>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Novo ime"
-                            type="text"
-                            id="minut"
-                            defaultValue={korisnik.ime}
-                            autoComplete="minut"
-                            onChange={imeHandler}
-                        />
-              
+                        <input type="text" data-testid='ime' name="firstname" placeholder="Unesite novo ime" onChange={imeHandler}/>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                        <h1>{korisnik.prezime}</h1>
+                        <h1 data-testid='prezime'>{korisnik.prezime}</h1>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Novo prezime"
-                            type="text"
-                            id="minut"
-                            defaultValue={korisnik.prezime}
-                            autoComplete="minut"
-                            onChange={prezimeHandler}
-                        />
+                        <input type="text" data-testid='prezime' name="firstname" placeholder="Unesite novo prezime" onChange={prezimeHandler}/>
+                        
               
                         </Item>
                     </Grid>
                     <Grid xs={6}>
                         <Item>
-                        <h1>{korisnik.email}</h1>
+                        <h1 data-testid='email'>{korisnik.email}</h1>
                     
                     </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Novo prezime"
-                            type="email"
-                            id="minut"
-                            defaultValue={korisnik.email}
-                            autoComplete="minut"
-                            onChange={mejlHandler}
-                        />
+                        <input type="email" data-testid='email' name="firstname" placeholder="Unesite novi email" onChange={mejlHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='sifra'>
                                 {"Unesite novu sifru"}
                             </h1>
                         </Item>
@@ -204,24 +171,13 @@ const CitajAzuriraj=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite novu sifru"
-                            type="password"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={sifraHandler}
-                            
-                        />
+                        <input type="password" data-testid='sifra' name="firstname" placeholder="Unesite novu sifru" onChange={sifraHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='telefon'>
                                 {korisnik.telefon}
                             </h1>
                         </Item>
@@ -230,24 +186,13 @@ const CitajAzuriraj=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite nov broj telefona"
-                            type="number"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={telefonHandler}
-                            
-                        />
+                        <input type="number" data-testid='telefon' name="firstname" placeholder="Unesite novi telefon" onChange={telefonHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='datum'>
                                 {korisnik.datumRodjenja}
                             </h1>
                         </Item>
@@ -256,24 +201,13 @@ const CitajAzuriraj=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite nov datum rodjenja"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={datumHandler}
-                            
-                        />
+                        <input type="text" data-testid='datum' name="firstname" placeholder="Unesite novi datum" onChange={datumHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='grad'>
                                 {korisnik.grad}
                             </h1>
                         </Item>
@@ -282,24 +216,13 @@ const CitajAzuriraj=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite nov grad"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={gradHandler}
-                            
-                        />
+                        <input type="text" data-testid='grad' name="firstname" placeholder="Unesite novi grad" onChange={gradHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='adresa'>
                                 {korisnik.adresa}
                             </h1>
                         </Item>
@@ -308,18 +231,7 @@ const CitajAzuriraj=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite novu adresu"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={adresaHandler}
-                            
-                        />
+                        <input type="text" data-testid='adresa' name="firstname" placeholder="Unesite novu adresu" onChange={adresaHandler}/>
               
                         </Item>
                     </Grid>
@@ -340,6 +252,7 @@ const CitajAzuriraj=()=>
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                   onClick={azurirajKorisnikaHandler}
+                  data-testid='dugme'
                 >
                   Azuriraj korisnika
                 </Button>

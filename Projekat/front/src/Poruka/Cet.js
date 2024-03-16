@@ -89,16 +89,26 @@ const Cet=()=>
 
     }
    
-        
+        const fjaPonovo=(value)=>
+        {
+          if(ponovo===true)
+          {
+            setPonovo(false);
+          }
+          else
+          {
+            setPonovo(true);
+          }
+        }
       
    
-    const kola=message.map((element) => (
+    const kola=message.map((element,index) => (
        <>
          {value==1&&(
             
                 <Grid xs={12}>
                     <Item>
-                        <Poruka m={element} sadrzaj={komentar}/>
+                        <Poruka m={element} indeks={index} sadrzaj={komentar} ponovo={fjaPonovo}/>
                     
                     </Item>
                 </Grid>
@@ -119,7 +129,8 @@ const Cet=()=>
         
            </Paper>
            <Grid xs={10}>
-           <TextField id="filled-basic" label="Napisite komentar" variant="filled" sx={{width:'1400px'}} onChange={komentarHandler}/>
+           <input type="text" style={{width:'1400px'}} data-testid='prezime' name="firstname"  placeholder="Napisite komentar" onChange={komentarHandler}/>
+           
            </Grid>
            <Grid xs={2}>
            <Button variant="contained" sx={{width:'200px',marginBottom:'0px',height:'60px'}} onClick={saljiHandler} >Posalji</Button>

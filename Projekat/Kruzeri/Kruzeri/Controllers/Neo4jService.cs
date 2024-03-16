@@ -33,6 +33,7 @@ public interface INeo4jService
     Task<Ponuda> PribaviPonuduAsync(string PonudaID);
     Task<IEnumerable<Ponuda>> PribaviSvePonudeAgencijeAsync(string AgencijaID);
     Task<IEnumerable<Ponuda>> PribaviSvePonudeAsync();
+   Task<Ponuda> PribaviPonuduKorisnikaAsync(string KorisnikID,string PonudaID);
     Task<Ponuda> AzurirajPonuduAsync(string PonudaID,Ponuda  ponuda);
     Task ObrisiPonuduAsync(string PonudaID);
     Task<Poruka> PosaljiPorukuAsync( Poruka poruka);
@@ -668,6 +669,48 @@ public class Neo4jService : INeo4jService
         }
 
         return ponude;
+    }
+   public async Task<Ponuda> PribaviPonuduKorisnikaAsync(string KorisnikID, string PonudaID)
+    {
+        Ponuda ponuda = null;
+        var session = _driver.AsyncSession();
+        try
+        {
+            await session.ExecuteReadAsync(async tx =>
+            {
+                var reader = await tx.RunAsync("MATCH (k:Korisnik{id: $KorisnikID})-[rel:IMA_REZERVACIJU]->(p:Ponuda{id:$PonudaID})  RETURN p;", new { KorisnikID=KorisnikID,PonudaID = PonudaID });
+                while (await reader.FetchAsync())
+                {
+                    var ponudeNode = reader.Current["p"].As<INode>();
+
+
+                    ponuda = new Ponuda
+                    {
+                        Id = ponudeNode.Properties.ContainsKey("id") ? ponudeNode.Properties["id"].As<string>() : "",
+                        NazivPonude = ponudeNode.Properties.ContainsKey("nazivPonude") ? ponudeNode.Properties["nazivPonude"].As<string>() : "",
+                        GradPolaskaBroda = ponudeNode.Properties.ContainsKey("gradPolaskaBroda") ? ponudeNode.Properties["gradPolaskaBroda"].As<string>() : "",
+                        NazivAerodroma = ponudeNode.Properties.ContainsKey("nazivAerodroma") ? ponudeNode.Properties["nazivAerodroma"].As<string>() : "",
+                        DatumPolaska = ponudeNode.Properties.ContainsKey("datumPolaska") ? ponudeNode.Properties["datumPolaska"].As<string>() : "",
+                        DatumDolaska = ponudeNode.Properties.ContainsKey("datumDolaska") ? ponudeNode.Properties["datumDolaska"].As<string>() : "",
+                        CenaSmestajaBezHrane = ponudeNode.Properties.ContainsKey("cenaSmestajaBezHrane") ? ponudeNode.Properties["cenaSmestajaBezHrane"].As<int>() : default,
+                        CenaSmestajaSaHranom = ponudeNode.Properties.ContainsKey("cenaSmestajaSaHranom") ? ponudeNode.Properties["cenaSmestajaSaHranom"].As<int>() : default,
+                        ListaGradova = ponudeNode.Properties.TryGetValue("listaGradova", out var value) && value != null ? value.As<List<string>>() : null,
+                        OpisPutovanja = ponudeNode.Properties.ContainsKey("opisPutovanja") ? ponudeNode.Properties["opisPutovanja"].As<string>() : "",
+
+
+
+                    };
+                }
+
+
+            });
+        }
+        finally
+        {
+            await session.CloseAsync();
+        }
+
+        return ponuda;
     }
     public async Task<IEnumerable<Ponuda>> PribaviSvePonudeAsync()
     {

@@ -19,6 +19,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
+import { Button } from '@mui/material';
 export default function Kartica(props) {
  const navigate=useNavigate();
  const email=localStorage.getItem('email');
@@ -30,33 +31,29 @@ const btnHandler=(event)=>
     navigate('/DetaljnaPonuda');
 }
 const [korisnici,setKorisnici]=React.useState([]);
-const [rezervisana,setRezervisana]=React.useState(false);
+
 const idKorisnika=localStorage.getItem('id');
 React.useEffect(() => {
       
-       
-  console.log('Uso sam u fju');
-  const response =  axios.get(`https://localhost:7199/Ponuda/PribaviSveKorisnikePonude/${props.ponuda.id}`,
-  {
-    headers:{
-      //Authorization: `Bearer ${token}`
-    }
-  }).then(response=>{
-    setKorisnici(response.data);
-    response.data.forEach(element => {
-      if(element.id===idKorisnika)
-      {
-        setRezervisana(true);
-        console.log('rezervisana'+rezervisana);
+       if((email!=null&&email.startsWith('korisnik'))===true)
+       {
+        console.log('Uso sam u fju');
+        const response =  axios.get(`https://localhost:7199/Ponuda/PribaviPonuduKorisnika/${idKorisnika}/${props.ponuda.id}`,
+        {
+          headers:{
+            //Authorization: `Bearer ${token}`
+          }
+        }).then(response=>{
+          setKorisnici(response.data);
+          
+          console.log(response.data);
+        })
+        .catch(error=>{
+          console.log(error);
+         
+        })
         
-      }
-    });
-    console.log(response.data);
-  })
-  .catch(error=>{
-    console.log(error);
-   
-  })
+       }
   
 
 }, []);
@@ -124,7 +121,7 @@ const brisiHandler=(event)=>
 }
 
   return (
-    <Card sx={{ Width: 345,bgcolor:'#c5c9c6' }} data-testid="add-stock-container">
+    <Card sx={{ Width: 345,bgcolor:'#c5c9c6' }} data-testid={'Ponuda'+props.indeks}>
       <CardHeader
        
       
@@ -155,28 +152,28 @@ const brisiHandler=(event)=>
         {props.ponuda.opisPutovanja}
         </Typography>
       </CardContent>
-      {email.startsWith('korisnik')===true&&(<CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={(event) => btnHandler(event)}> 
+      {(email==null||email.startsWith('korisnik')===true)&&(<CardActions disableSpacing>
+        <IconButton data-testid={'Ponuda-Detalji'+props.indeks} aria-label="add to favorites" onClick={(event) => btnHandler(event)}> 
           <MoreIcon />
           <p>Detalji</p>
         </IconButton>
 
-        {(rezervisana===false&&email.startsWith('korisnik')===true)&&(<IconButton aria-label="share" sx={{marginLeft:'100px'}} disabled={email===null?true:false} onClick={(event) => rezervacijaHandler(event, props.ponuda.id)}>
+        {((email!=null&&email.startsWith('korisnik')===true)&&korisnici===false)&&(<IconButton data-testid={'Rezervisi'+props.indeks} aria-label="share" sx={{marginLeft:'100px'}} disabled={email===null?true:false} onClick={(event) => rezervacijaHandler(event, props.ponuda.id)}>
           <VisibilityIcon/>
           <p>Rezervisi</p>
         </IconButton>)}
-        {(rezervisana===true&&email.startsWith('korisnik')===true)&&(<IconButton aria-label="share" sx={{marginLeft:'100px'}} disabled={email===null?true:false} onClick={(event) => otkazHandler(event, props.ponuda.id)}>
+        {((email!=null&&email.startsWith('korisnik')===true)&&korisnici===true)&&(<IconButton data-testid={'Otkazi'+props.indeks} aria-label="share" sx={{marginLeft:'100px'}} disabled={email===null?true:false} onClick={(event) => otkazHandler(event, props.ponuda.id)}>
           <CancelIcon/>
           <p>Otkazi rezervaciju</p>
         </IconButton>)}
       </CardActions>)}
-      {email.startsWith('agencija')===true&&(
+      {(email!=null&&email.startsWith('agencija'))===true&&(
         <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={(event) => azurirajHandler(event)}> 
+        <IconButton data-testid={'Azuriraj'+props.indeks} aria-label="add to favorites" onClick={(event) => azurirajHandler(event)}> 
           <EditIcon />
           <p>Azuriraj</p>
         </IconButton>
-        <IconButton aria-label="add to favorites" onClick={(event) => brisiHandler(event)}> 
+        <IconButton data-testid={'Obrisi'+props.indeks} aria-label="add to favorites" onClick={(event) => brisiHandler(event)}> 
           <DeleteIcon />
           <p>Obrisi</p>
         </IconButton>

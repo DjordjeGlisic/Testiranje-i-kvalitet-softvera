@@ -74,6 +74,35 @@ public class PonudaController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    //read
+    [HttpGet("PribaviPonuduKorisnika/{KorisnikID}/{PonudaID}")]
+    public async Task<ActionResult<bool>> PribaviPonuduKorisnika([FromRoute] string KorisnikID, [FromRoute] string PonudaID)
+    {
+        try
+        {
+            if (PonudaID.Length < 30)
+                return BadRequest("Identifikator ponuda mora biti veci od 30 karaktera");
+            if (KorisnikID.Length < 30)
+                return BadRequest("Identifikator korisnika mora biti veci od 30 karaktera");
+            var provera = await _neo4jService.PribaviPonuduAsync(PonudaID);
+            if (provera == null)
+                return BadRequest("Ne postoji ponuda sa zadatim IDem u bazi");
+            var provera2 = await _neo4jService.FindUserAsync(KorisnikID);
+            if (provera2 == null)
+                return BadRequest("Ne postoji korisnik sa zadatim IDem u bazi");
+            var ponude = await _neo4jService.PribaviPonuduKorisnikaAsync(KorisnikID,PonudaID);
+            if(ponude == null)
+            {
+                return Ok(false);
+            }
+           
+            return Ok(true);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
     [HttpGet("PribaviPonuduPoId/{PonudaID}")]
     public async Task<ActionResult<Ponuda>> PribaviPonudePrekoID([FromRoute] string PonudaID)
     {

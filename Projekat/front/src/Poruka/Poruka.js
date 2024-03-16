@@ -40,7 +40,7 @@ const Poruka=(props)=>{
       }
     )
       .then((response) => {
-      navigate('/OkStranica');
+        props.ponovo(1);
         
       
     })
@@ -77,7 +77,7 @@ const Poruka=(props)=>{
       }
     )
       .then((response) => {
-      navigate('/OkStranica');
+      props.ponovo(1);
         
       
     })
@@ -95,7 +95,7 @@ const Poruka=(props)=>{
        
         <Item sx={{backgroundColor:'green'}}>
            <Avatar>{"K"}</Avatar>
-            <Paper elevation={24} >
+            <Paper elevation={24} data-testid={props.m.sadrzaj}>
               {props.m.sadrzaj}
             </Paper>
 
@@ -103,10 +103,10 @@ const Poruka=(props)=>{
        
     </Grid>
     <Grid xs={3}>
-          <Button variant='contained' disabled={id===props.m.idKorisnika?false:true} onClick={azurirajHandler}>Azuriraj</Button>
+          <Button variant='contained' data-testid={'Azuriraj'+props.m.sadrzaj} disabled={id===props.m.idKorisnika?false:true} onClick={azurirajHandler}>Azuriraj</Button>
     </Grid>
     <Grid xs={3}>
-          <Button variant='contained' disabled={id===props.m.idKorisnika?false:true} onClick={obrisiHandler}>Obrisi</Button>
+          <Button variant='contained' data-testid={'Obrisi'+props.m.sadrzaj} disabled={id===props.m.idKorisnika?false:true} onClick={obrisiHandler}>Obrisi</Button>
     </Grid>
 
      </>)}

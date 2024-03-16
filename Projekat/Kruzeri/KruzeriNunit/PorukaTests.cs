@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Kruzeri.Controllers.AdministratorController;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using Moq;
 namespace KruzeriNunit
 {
 
@@ -36,10 +36,10 @@ namespace KruzeriNunit
             var logger = loggerFactory.CreateLogger<KorisnikController>();
             var neo4jService = Neo4jService.CreateInMemoryService();
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            
+            var mockHubContext=new Mock<IHubContext<ChatHub>>();
 
         // Instanciranje kontrolera sa stvarnim implementacijama servisa i okoline
-        _porukaController = new PorukaController(logger, neo4jService, configuration);
+        _porukaController = new PorukaController(logger, neo4jService, configuration,mockHubContext.Object);
             IDKreiranih = new List<string>();
             if(IDKorisnika==null)
             {

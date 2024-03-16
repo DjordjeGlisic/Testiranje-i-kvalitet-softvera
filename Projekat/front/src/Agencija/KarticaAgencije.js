@@ -65,7 +65,7 @@ const KarticaAgencije=(props)=>
     }
     return (
         <>
-       <Card sx={{ Width: 345,bgcolor:'#c7d6ed' }} data-testid="add-stock-container">
+       <Card sx={{ Width: 345,bgcolor:'#c7d6ed' }} data-testid={'Agencija'+props.indeks}>
       <CardHeader
        
        avatar={
@@ -97,23 +97,23 @@ const KarticaAgencije=(props)=>
       </CardContent>
       {(email===null||email.startsWith('korisnik')==true)&&(
       <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites" onClick={(event) => btnHandler(event)}> 
+      <IconButton aria-label="add to favorites" data-testid={'Agencija-Detalji'+props.indeks} onClick={(event) => btnHandler(event)}> 
           <MoreIcon />
           <p>Detalji</p>
         </IconButton>
 
-        <IconButton aria-label="share" sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
+       {email!=null&&( <IconButton aria-label="share"  data-testid={'Agencija-Poruka'+props.indeks} sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
           <ChatIcon/>
           <p>Poruka</p>
-        </IconButton>
+        </IconButton>)}
       </CardActions>)}
-      {email.startsWith('admin')===true&&(
+      {(email!=null&&email.startsWith('admin'))===true&&(
         <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={(event) => azurirajHandler(event)}> 
+        <IconButton aria-label="add to favorites"  data-testid={'Agencija-Azuriraj'+props.indeks} onClick={(event) => azurirajHandler(event)}> 
           <EditIcon />
           <p>Azuriraj</p>
         </IconButton>
-        <IconButton aria-label="add to favorites" onClick={(event) => brisiHandler(event)}> 
+        <IconButton aria-label="add to favorites"  data-testid={'Agencija-Obrisi'+props.indeks} onClick={(event) => brisiHandler(event)}> 
           <DeleteIcon />
           <p>Obrisi</p>
         </IconButton>

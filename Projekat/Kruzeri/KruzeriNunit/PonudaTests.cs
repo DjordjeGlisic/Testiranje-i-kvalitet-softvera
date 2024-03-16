@@ -401,6 +401,73 @@ namespace KruzeriNunit
         }
         //TESTIRA SE CITANJE PONUDE
         [Test]
+        public async Task TestProveriKorisnikPonudaReturnsOkResult()
+        {
+            var result = await _ponudaController.PribaviPonuduKorisnika(IDKorisnika, ID1);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = result.Result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null);
+           
+        }
+        [Test]
+        public async Task TestProveriKorisnikPonudaReturnsBadReqeustIDKorisnika()
+        {
+            var result = await _ponudaController.PribaviPonuduKorisnika("IDKorisnika", ID1);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Identifikator korisnika mora biti veci od 30 karaktera"));
+
+        }
+        [Test]
+        public async Task TestProveriKorisnikPonudaReturnsBadReqeustIDPonude()
+        {
+            var result = await _ponudaController.PribaviPonuduKorisnika(IDKorisnika, "ID1");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Identifikator ponuda mora biti veci od 30 karaktera"));
+
+        }
+        [Test]
+        public async Task TestProveriKorisnikPonudaReturnsBadReqeustNullKorisnik()
+        {
+            var result = await _ponudaController.PribaviPonuduKorisnika("15f82f25-ed74-4feb-9474-413c784169a2", ID1);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Ne postoji korisnik sa zadatim IDem u bazi"));
+
+        }
+        [Test]
+        public async Task TestProveriKorisnikPonudaReturnsBadReqeustNullAgencija()
+        {
+            var result = await _ponudaController.PribaviPonuduKorisnika(IDKorisnika,"15f82f25-ed74-4feb-9474-413c784169a2");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Ne postoji ponuda sa zadatim IDem u bazi"));
+
+        }
+        [Test]
         public async Task TestProcitajPonuduReturnsOkObjectResult()
         {
 

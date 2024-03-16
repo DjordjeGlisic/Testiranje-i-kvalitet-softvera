@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
 using System.Text.RegularExpressions;
+using Kruzeri.Hubs;
 using Kruzeri.Models;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Kruzeri.Controllers;
 
@@ -14,12 +16,13 @@ public class PorukaController : ControllerBase
     private readonly ILogger<KorisnikController> _logger;
     private readonly INeo4jService _neo4jService;
     private readonly IConfiguration _configuration;
-
-    public PorukaController(ILogger<KorisnikController> logger, INeo4jService neo4jService, IConfiguration configuration)
+    private readonly IHubContext<ChatHub> _hubContext;
+    public PorukaController(ILogger<KorisnikController> logger, INeo4jService neo4jService, IConfiguration configuration,IHubContext<ChatHub> hubContext)
     {
         _logger = logger;
         _neo4jService = neo4jService;
         _configuration = configuration;
+        _hubContext = hubContext;
     }
     //create
     [HttpPost("PosaljiPoruku")]
@@ -45,7 +48,8 @@ public class PorukaController : ControllerBase
                 return BadRequest("Agencija sa prosledjenim IDem nije pronadjena u bazi");
 
             var result=await _neo4jService.PosaljiPorukuAsync(poruka);
-            return Ok(result);;
+            //await _hubContext.Clients.All.SendAsync("MessageSetChanged");
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -151,6 +155,7 @@ public class PorukaController : ControllerBase
           
            
           var result=await _neo4jService.AzurirajPorukuAsync(PorukaID, poruka);
+           // await _hubContext.Clients.All.SendAsync("MessageSetChanged");
             return Ok(result);
         }
         catch (Exception ex)
@@ -170,6 +175,7 @@ public class PorukaController : ControllerBase
             if (poruka == null)
                 return BadRequest("Poruka sa datim IDem nije pronadjena u bazi");
             await _neo4jService.ObrisiPorukuAsync(PorukaID);
+          //  await _hubContext.Clients.All.SendAsync("MessageSetChanged");
             return Ok("Uspesno obrisana poruka.");
         }
         catch (Exception ex)

@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Paper } from '@mui/material';
 import axios from 'axios';
+import '../App.css';
 function Registracija()
 {
     const navigate = useNavigate();
@@ -132,135 +133,57 @@ const gradHandler=(event)=>
             alignItems: "center",
           }}
         >
-          <Typography component="h1" variant="h3">
+          <Typography component="h1" variant="h3" data-testid='registracija'>
            Registracija
           </Typography>
          
           <Box component="form" noValidate sx={{ mt: 1 }}>
+            
           <Grid container spacing={2}>
             <Grid item xs={6}>
                 <Item>
-                    <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="ime"
-                    label="Ime"
-                    name="ime"
-                    autoComplete="ime"
-                    autoFocus
-                    onChange={imeHandler}
-                />  
+                 
+                  <input type="text" data-testid='ime' name="firstname" placeholder="Unesite ime" onChange={imeHandler}/>
+                
                 </Item>
             </Grid>
                 <Grid item xs={6}>
                     <Item>
-                        <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="prezime"
-                        label="Prezime"
-                        type="text"
-                        id="prezime"
-                        autoComplete="prezime"
-                        onChange={prezimeHandler}
-                        />
+                    <input type="text" data-testid='prezime' name="firstname" placeholder="Unesite prezime" onChange={prezimeHandler}/>
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
                     <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="email"
-                        label="Email"
-                        type="email"
-                        id="email"
-                        autoComplete="email"
-                        onChange={emailHandler}
-                    />
+                    <input type="email" data-testid='email' name="firstname" placeholder="Unesite email" onChange={emailHandler}/>
           
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
                     <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Sifra"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange={passwordHandler}
-                    />
+                    <input type="password" data-testid='sifra' name="firstname" placeholder="Unesite sifru" onChange={passwordHandler}/>
           
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
                     <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="confirm-password"
-                        label="Broj telefona"
-                        type="number"
-                        id="telefon"
-                        autoComplete="current-password"
-                        onChange={telefonHandler}
-                    />
+                    <input type="number" data-testid='telefon' name="firstname" placeholder="Unesite broj telefona" onChange={telefonHandler}/>
+                    </Item>
+                </Grid>
+                <Grid item xs={12}>
+                    <Item>
+                    <input type="text" data-testid='datum' name="firstname" placeholder="Unesite datum rodjenja" onChange={datumHandler}/>
           
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
                     <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="confirm-password"
-                        label="datum rodjenja"
-                        type="text"
-                        id="datum"
-                        autoComplete="current-password"
-                        onChange={datumHandler}
-                    />
+                    <input type="text" data-testid='grad' name="firstname" placeholder="Unesite grad u kome zivite" onChange={gradHandler}/>
           
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
                     <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="confirm-password"
-                        label="Grad"
-                        type="text"
-                        id="grad"
-                        autoComplete="current-password"
-                        onChange={gradHandler}
-                    />
-          
-                    </Item>
-                </Grid>
-                <Grid item xs={12}>
-                    <Item>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="confirm-password"
-                        label="Adresa"
-                        type="text"
-                        id="grad"
-                        autoComplete="current-password"
-                        onChange={adresaHandler}
-                    />
+                    <input type="text" data-testid='adresa' name="firstname" placeholder="Unesite adresu" onChange={adresaHandler}/>
           
                     </Item>
                 </Grid>

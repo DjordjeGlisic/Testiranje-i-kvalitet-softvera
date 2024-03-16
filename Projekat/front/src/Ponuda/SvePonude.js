@@ -54,16 +54,16 @@ const SvePonude=()=>
 
     return (
         <>
-       {(email.startsWith('korisnik')==true||email===null)&&( <AppBarKorisnik/>)}
-       {email.startsWith('agencija')===true&&(<AppBarAgencija/>)}
-        <h1 style={{color:'#bccccf'}}>Ponude koje nude agencije na platformi "Kruzeri"</h1>
+       {(email===null||email.startsWith('korisnik')==true)&&( <AppBarKorisnik/>)}
+       {(email!=null&&email.startsWith('agencija')===true)&&(<AppBarAgencija/>)}
+        <h1 test-id='sve-ponude' style={{color:'#bccccf'}}>Ponude koje nude agencije na platformi "Kruzeri"</h1>
         <hr/>
         {value===1&&(
         <Grid container spacing={0} sx={{backgroundColor:'#bccccf'}}>
-        {ponude.map((element) => (
+        {ponude.map((element,index) => (
             <Grid sx={4}>
             <Item>
-    <Kartica ponuda={element} />
+    <Kartica ponuda={element} indeks={index}/>
     </Item>
             </Grid>
     ))}
@@ -77,10 +77,10 @@ const SvePonude=()=>
          <hr/>
          {val===1&&(
         <Grid container spacing={0} sx={{backgroundColor:'#bccccf'}}>
-        {agencije.map((element) => (
+        {agencije.map((element,index) => (
             <Grid sx={4}>
             <Item>
-    <KarticaAgencije agencija={element} />
+    <KarticaAgencije agencija={element} indeks={index}/>
     </Item>
             </Grid>
     ))}

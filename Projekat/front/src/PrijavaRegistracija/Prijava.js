@@ -123,7 +123,7 @@ function Prijava() {
         
       >
         <Container component="main" maxWidth="xs" alignItems="center" justifyContent="center"  >
-        <Paper elevation={24}>
+        <Paper elevation={24} data-testid='papir-prijava'>
         <Box
           sx={{  
             marginTop: 8,
@@ -162,6 +162,7 @@ function Prijava() {
 
            </div>
            <Button
+            data-testid="prijava"
               type="submit"
               fullWidth
               variant="contained"
