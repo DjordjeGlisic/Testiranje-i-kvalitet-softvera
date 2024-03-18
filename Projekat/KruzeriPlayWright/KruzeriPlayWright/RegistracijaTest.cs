@@ -70,7 +70,33 @@ namespace KruzeriPlayWright
             await page.WaitForURLAsync("http://localhost:3000/Prijava");
             await page.WaitForSelectorAsync("[data-testid='papir-prijava']");
             Assert.IsNotNull(await page.QuerySelectorAsync("[data-testid='papir-prijava']"), "Stranica prijave nije prikazana");
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaPrijava1.png" });
+            
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaRegistracija1.png" });
+           
+        }
+        [Test]
+        public async Task RegistracijaAdministratoraTest()
+        {
+
+            await page.GotoAsync("http://localhost:3000/Registracija");
+            await page.GetByTestId("ime").FillAsync("Administrator");
+
+            await page.GetByTestId("prezime").FillAsync("Administratovic");
+            await page.GetByTestId("email").FillAsync("adminaki@gmail.com");
+            await page.GetByTestId("sifra").FillAsync("admin123");
+            await page.GetByTestId("telefon").FillAsync("3201233210");
+            await page.GetByTestId("datum").FillAsync("4.8.1970");
+            await page.GetByTestId("grad").FillAsync("New Test");
+            await page.GetByTestId("adresa").FillAsync("Testovska,20");
+            await Expect(page.GetByText(" Registrujte se")).ToBeVisibleAsync();
+            await page.GetByText(" Registrujte se").ClickAsync();
+            await page.WaitForURLAsync("http://localhost:3000/Prijava");
+            await page.WaitForSelectorAsync("[data-testid='papir-prijava']");
+            Assert.IsNotNull(await page.QuerySelectorAsync("[data-testid='papir-prijava']"), "Stranica prijave nije prikazana");
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaRegistracija2.png" });
+        
+
+
         }
         [Test]
         public async Task PrelazakNaPrijavuTest()
@@ -80,6 +106,8 @@ namespace KruzeriPlayWright
             await page.GetByRole(AriaRole.Link).ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/Prijava#");
             await Expect(page.GetByText(" Prijavi se")).ToBeVisibleAsync();
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaRegistracija3.png" });
+
         }
         [TearDown]
         public async Task Teardown()

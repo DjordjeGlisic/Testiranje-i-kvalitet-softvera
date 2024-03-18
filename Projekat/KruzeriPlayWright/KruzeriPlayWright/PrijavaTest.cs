@@ -70,7 +70,7 @@ namespace KruzeriPlayWright
         public async Task PrijaviAgenciju()
         {
             await page.GotoAsync("http://localhost:3000/Prijava");
-            await page.GetByLabel("Email Address").FillAsync("agencija@gmail.com");
+            await page.GetByLabel("Email Address").FillAsync("agencija1@gmail.com");
             await page.GetByLabel("Password").FillAsync("agencija123");
             await Expect(page.GetByText("Prijavi se")).ToBeVisibleAsync();
             await page.GetByTestId("prijava").ClickAsync();
@@ -82,8 +82,8 @@ namespace KruzeriPlayWright
         public async Task PrijaviAdministratora()
         {
             await page.GotoAsync("http://localhost:3000/Prijava");
-            await page.GetByLabel("Email Address").FillAsync("adminali@gmail.com");
-            await page.GetByLabel("Password").FillAsync("aliali123");
+            await page.GetByLabel("Email Address").FillAsync("adminaki@gmail.com");
+            await page.GetByLabel("Password").FillAsync("admin123");
             await Expect(page.GetByText("Prijavi se")).ToBeVisibleAsync();
             await page.GetByTestId("prijava").ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/SveAgencije");
@@ -98,6 +98,7 @@ namespace KruzeriPlayWright
             await page.GetByRole(AriaRole.Link).ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/Registracija#");
             await Expect(page.GetByText("Registracija")).ToBeVisibleAsync();
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaPrijava4.png" });
         }
         [TearDown]
         public async Task Teardown()

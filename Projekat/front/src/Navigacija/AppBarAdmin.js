@@ -59,9 +59,9 @@ const AppBarAdmin=()=>
            
             {email!=null&&(<>
             <Avatar sx={{ color: '#fff',marginTop:'0px',marginLeft:'-40px'}} >{email[0]+email[1]}</Avatar>
-            <Button sx={{color:'white',marginTop:'-70px'}} onClick={odjavaHandler}> Odjavi se</Button>
-            <Button sx={{color:'white',marginTop:'-70px'}} onClick={dodajHandler}> DodajAgenciju</Button>
-            <Button sx={{color:'white',marginTop:'-70px'}} onClick={pocetnaHandler}>Pocetna</Button>
+            <Button sx={{color:'white',marginTop:'-70px'}} data-testid='Odjavi-Admina' onClick={odjavaHandler}> Odjavi se</Button>
+            <Button sx={{color:'white',marginTop:'-70px'}} data-testid='Dodaj-Agenciju' onClick={dodajHandler}> Dodaj Agenciju</Button>
+            <Button sx={{color:'white',marginTop:'-70px'}} data-testid='Sve-Agencije' onClick={pocetnaHandler}>Pocetna</Button>
             
             </>
             )}

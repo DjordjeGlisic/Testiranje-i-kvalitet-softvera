@@ -48,10 +48,10 @@ const SveAgencije=()=>
          <hr/>
          {val===1&&(
         <Grid container spacing={0} sx={{backgroundColor:'#bccccf'}}>
-        {agencije.map((element) => (
+        {agencije.map((element,index) => (
             <Grid sx={4}>
             <Item>
-    <KarticaAgencije agencija={element} />
+    <KarticaAgencije agencija={element} indeks={index}  />
     </Item>
             </Grid>
     ))}

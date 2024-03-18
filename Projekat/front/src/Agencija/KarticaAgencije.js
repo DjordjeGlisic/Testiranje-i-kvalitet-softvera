@@ -102,7 +102,7 @@ const KarticaAgencije=(props)=>
           <p>Detalji</p>
         </IconButton>
 
-       {email!=null&&( <IconButton aria-label="share"  data-testid={'Agencija-Poruka'+props.indeks} sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
+       {email!=null&&( <IconButton aria-label="share" data-testid={'Agencija-Poruka'+props.agencija.naziv}  sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
           <ChatIcon/>
           <p>Poruka</p>
         </IconButton>)}
@@ -113,7 +113,7 @@ const KarticaAgencije=(props)=>
           <EditIcon />
           <p>Azuriraj</p>
         </IconButton>
-        <IconButton aria-label="add to favorites"  data-testid={'Agencija-Obrisi'+props.indeks} onClick={(event) => brisiHandler(event)}> 
+        <IconButton aria-label="add to favorites" data-testid={'Agencija-Obrisi'+props.indeks}  onClick={(event) => brisiHandler(event)}> 
           <DeleteIcon />
           <p>Obrisi</p>
         </IconButton>

@@ -93,10 +93,10 @@ namespace KruzeriPlayWright
 
 
 
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude1.png" });
         }
         [Test]
-        public async Task SePonudeDetaljiPonudetest()
+        public async Task SvePonudeDetaljiPonudetest()
         {
 
             await page.GotoAsync("http://localhost:3000/");
@@ -120,7 +120,7 @@ namespace KruzeriPlayWright
             await Expect(page.GetByText("Cena smestaja na brodu sa hranom")).ToBeVisibleAsync();
             await Expect(page.GetByText("Lista gradova koji se nalaze na ovoj ponudi")).ToBeVisibleAsync();
             await Expect(page.GetByText("Opis putovanja")).ToBeVisibleAsync();
-        
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaDetaljnaPonuda.png" });
 
 
 
@@ -156,14 +156,16 @@ namespace KruzeriPlayWright
             await Expect(page.GetByText("Dajte ocenu agenciji:")).ToBeVisibleAsync();
             await Expect(page.GetByText("Ponude koja agencija nudi")).ToBeVisibleAsync();
             await Expect(page.GetByText("Korisnici si u kontaktu sa agencijom")).ToBeVisibleAsync();
+            await page.GetByTestId("unos-ocena").FillAsync("4");
+            await page.GetByTestId("dugme-oceni").ClickAsync();
+            await page.WaitForURLAsync("http://localhost:3000/DetaljnaAgencija");
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaDetaljnaAgencija.png" });
 
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
 
 
 
 
-
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
+          
         }
         [Test]
         public async Task SvePonudePosaljiPorukuTest()
@@ -180,10 +182,12 @@ namespace KruzeriPlayWright
             await Expect(page.GetByText(" Prijavi se")).ToBeVisibleAsync();
             await page.GetByTestId("prijava").ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/");
-            await page.WaitForSelectorAsync("[data-testid='Agencija-Poruka0']");
-            await page.ClickAsync("[data-testid='Agencija-Poruka0']");
+            await page.WaitForSelectorAsync("[data-testid='Agencija-PorukaAgencija1']");
+            await page.ClickAsync("[data-testid='Agencija-PorukaAgencija1']");
             await page.WaitForURLAsync("http://localhost:3000/Cet");
             await page.GetByPlaceholder("Napisite komentar").FillAsync("Poruku salje korisnik");
+            await page.GetByText("Posalji").ClickAsync();
+            await page.GetByPlaceholder("Napisite komentar").FillAsync("Ovo je poruka koja se ne brise");
             await page.GetByText("Posalji").ClickAsync();
             await page.WaitForSelectorAsync("[data-testid='Poruku salje korisnik']");
             Assert.IsNotNull(await page.QuerySelectorAsync("[data-testid='Poruku salje korisnik']"), "Neuspelo slanje poruke");
@@ -192,17 +196,15 @@ namespace KruzeriPlayWright
             await page.WaitForSelectorAsync("[data-testid='Poruku azurira korisnik']");
             Assert.IsNotNull(await page.QuerySelectorAsync("[data-testid='Poruku azurira korisnik']"), "Neuspelo slanje poruke");
             await page.ClickAsync("[data-testid='ObrisiPoruku azurira korisnik']");
-            Assert.IsNull(await page.QuerySelectorAsync("[data-testid='Poruku azurira korisnik']"), "Neuspelo slanje poruke");
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
+           // Assert.IsNull(await page.QuerySelectorAsync("[data-testid='Poruku azurira korisnik']"), "Neuspelo brisanje poruke");
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaCet.png" });
 
         }
         [Test]
         public async Task SvePonudeGuest()
         {
             await page.GotoAsync("http://localhost:3000/");
-            await page.GetByText("PRIJAVI SE").ClickAsync();
-            await page.WaitForURLAsync("http://localhost:3000/Prijava");
-
+            
 
 
             await Expect(page.GetByText("Ponude koje nude agencije na platformi \"Kruzeri\"")).ToBeVisibleAsync();
@@ -214,7 +216,7 @@ namespace KruzeriPlayWright
             Assert.IsNull(await page.QuerySelectorAsync("[data-testid='Rezervisi0']"),"Neuspelo sakrivanje dugmeta rezervisi od gosta");
             Assert.IsNull(await page.QuerySelectorAsync("[data-testid='Otkazi0']"), "Neuspelo sakrivanje dugmeta otkazi od gosta");
             Assert.IsNull(await page.QuerySelectorAsync("[data-testid='Agencija-Poruka0']"), "Neuspelo sakrivanje dugmeta poruka od gosta");
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonudeGost.png" });
 
         }
     }

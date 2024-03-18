@@ -79,7 +79,7 @@ namespace KruzeriPlayWright
             await page.WaitForSelectorAsync("[data-testid='ime']");
             Assert.IsNotNull(await page.QuerySelectorAsync("[data-testid='adresa']"), "Neuspelo pribavljanje korisnika");
 
-            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaSvePonude.png" });
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaCitajAzurirajKorisnika.png" });
         }
         [Test]
         public async Task AzurirajKorisnikaButtonTest()
@@ -108,8 +108,8 @@ namespace KruzeriPlayWright
             await page.GetByPlaceholder("Unesite novu adresu").FillAsync("Azurirana adresa");
             await page.GetByTestId("dugme").ClickAsync();
 
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaCitajAzurirajKorisnika2.png" });
             await page.WaitForURLAsync("http://localhost:3000/Prijava");
-
 
 
 
@@ -134,6 +134,7 @@ namespace KruzeriPlayWright
             await page.WaitForURLAsync("http://localhost:3000/");
             await page.GetByText("Odjavi se").ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/Prijava");
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaCitajAzurirajKorisnika3.png" });
 
         }
         [Test]
@@ -152,6 +153,7 @@ namespace KruzeriPlayWright
             await page.WaitForURLAsync("http://localhost:3000/");
             await page.GetByText("Obrisi nalog").ClickAsync();
             await page.WaitForURLAsync("http://localhost:3000/Prijava");
+            await page.ScreenshotAsync(new() { Path = "../../../Slike/stranicaCitajAzurirajKorisnika4.png" });
 
         }
     }

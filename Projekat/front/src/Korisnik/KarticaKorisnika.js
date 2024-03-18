@@ -63,7 +63,7 @@ const KarticaKorisnika=(props)=>
       <CardActions disableSpacing>
         
 
-        {email.startsWith('agencija')&&(<IconButton aria-label="share" sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
+        {email.startsWith('agencija')&&(<IconButton aria-label="share" data-testid={'Korisnik'+props.indeks} sx={{marginLeft:'100px'}}  disabled={email===null?true:false} onClick={(event) => cetHandler(event)}>
           <ChatIcon/>
           <p>Poruka</p>
         </IconButton>)}

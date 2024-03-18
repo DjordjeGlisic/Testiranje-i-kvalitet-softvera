@@ -130,18 +130,7 @@ const DodajPonudu=()=>
                     <Grid item xs={12}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Naziv ponude"
-                            type="text"
-                            id="minut"
-                            
-                            autoComplete="minut"
-                            onChange={nazivPonudeHandler}
-                        />
+                        <input type="text" data-testid='naziv' name="firstname" placeholder="Unesite naziv ponude" onChange={nazivPonudeHandler}/>
               
                         </Item>
                     </Grid>
@@ -149,37 +138,14 @@ const DodajPonudu=()=>
                     <Grid item xs={12}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Naziv aerodroma"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={nazivAerodromaHandler}
-                        />
-              
+                        <input type="text" data-testid='aerodrom' name="firstname" placeholder="Unesite naziv aerodroma" onChange={nazivAerodromaHandler}/>
                         </Item>
                     </Grid>
                     
                     <Grid item xs={12}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Grad polaska broda"
-                            type="text"
-                            id="minut"
-                          
-                            autoComplete="minut"
-                            onChange={gradPolaskaBrodaHandler}
-                        />
-              
+                        <input type="text" data-testid='grad' name="firstname" placeholder="Unesite grad iz koga poalzi brod" onChange={gradPolaskaBrodaHandler}/>
                         </Item>
                     </Grid>
                    
@@ -187,18 +153,7 @@ const DodajPonudu=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Datum polaska"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={datumPolaskaHandler}
-                            
-                        />
+                        <input type="text" data-testid='polazak' name="firstname" placeholder="Unesite datum pocetka putovanja" onChange={datumPolaskaHandler}/>
               
                         </Item>
                     </Grid>
@@ -207,18 +162,7 @@ const DodajPonudu=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Datum dolaska"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={datumDolaskaHandler}
-                            
-                        />
+                        <input type="text" data-testid='dolazak' name="firstname" placeholder="Unesite datum kraja putovanja" onChange={datumDolaskaHandler}/>
               
                         </Item>
                     </Grid>
@@ -227,18 +171,7 @@ const DodajPonudu=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Cena smestaja bez hrane"
-                            type="number"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={cenaSmestajaBezHraneHandler}
-                            
-                        />
+                        <input type="number" data-testid='ne-hrana' name="firstname" placeholder="Unesite cenu smestaja bez hrane u evrima" onChange={cenaSmestajaBezHraneHandler}/>
               
                         </Item>
                     </Grid>
@@ -247,18 +180,7 @@ const DodajPonudu=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Cena smestaja sa hranom"
-                            type="number"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={cenaSmestajaSaHranomHandler}
-                            
-                        />
+                        <input type="number" data-testid='hrana' name="firstname" placeholder="Unesite cenu smestaja sa hranom u evrima" onChange={cenaSmestajaSaHranomHandler}/>
               
                         </Item>
                     </Grid>
@@ -267,18 +189,7 @@ const DodajPonudu=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Opis"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={opisPutovanjaHandler}
-                            
-                        />
+                        <input type="text" data-testid='opis' name="firstname" placeholder="Unesite kratak opis putovanja sa najmanje 10 slova" onChange={opisPutovanjaHandler}/>
               
                         </Item>
                     </Grid>
@@ -297,21 +208,14 @@ const DodajPonudu=()=>
                 
               <FormControl variant="filled" sx={{width:'400px'}} >
                      
-                      <TextField
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={tip}
-                      onChange={handleChangeTip}
-                      >
-                    
-                      </TextField>
+              <input type="text" data-testid='gradovi' name="firstname" placeholder="Unesite grad koji se posecuje" onChange={handleChangeTip}/>
                   </FormControl>
                   </Item>
           
           </Grid>
           <Grid xs={2}>
             <Item>
-              <Button variant='contained' onClick={gradoviPressHandler}>Unesi grad</Button>
+              <Button variant='contained' data-testid='potvrda' onClick={gradoviPressHandler}>Unesi grad</Button>
             </Item>
           </Grid>
         <Grid xs={12}>
@@ -321,7 +225,7 @@ const DodajPonudu=()=>
         return (
           <li key={ind}>
             <Chip
-              
+              data-testid={'grad'+ind}
               label={data}
               onDelete={(event) => btnHandler(event,data)}
             />

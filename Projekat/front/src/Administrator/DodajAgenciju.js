@@ -98,18 +98,7 @@ const DodajAgenciju=()=>
                     <Grid item xs={12}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Naziv agencije"
-                            type="text"
-                            id="minut"
-                            
-                            autoComplete="minut"
-                            onChange={nazivHandler}
-                        />
+                        <input type="text" data-testid='naziv' name="firstname" placeholder="Unesite naziv agencije" onChange={nazivHandler}/>
               
                         </Item>
                     </Grid>
@@ -117,36 +106,14 @@ const DodajAgenciju=()=>
                     <Grid item xs={12}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Adresa"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={adresaHandler}
-                        />
+                        <input type="text" data-testid='adresa' name="firstname" placeholder="Unesite  adresu agencije" onChange={adresaHandler}/>
               
                         </Item>
                     </Grid>
                     
                     <Grid item xs={12}>
                         <Item>
-                      
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Telefon"
-                            type="numbert"
-                            id="minut"
-                          
-                            autoComplete="minut"
-                            onChange={telefonHandler}
-                        />
+                        <input type="number" data-testid='telefon' name="firstname" placeholder="Unesite telefon agencije" onChange={telefonHandler}/>
               
                         </Item>
                     </Grid>
@@ -155,18 +122,7 @@ const DodajAgenciju=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Email"
-                            type="email"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={mejlHandler}
-                            
-                        />
+                        <input type="email" data-testid='email' name="firstname" placeholder="Unesite email agencije" onChange={mejlHandler}/>
               
                         </Item>
                     </Grid>
@@ -175,19 +131,7 @@ const DodajAgenciju=()=>
                           <Grid item xs={12}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Sifra"
-                            type="password"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={sifraHandler}
-                            
-                        />
-              
+                        <input type="password" data-testid='sifra' name="firstname" placeholder="Unesite sifru" onChange={sifraHandler}/>
                         </Item>
                     </Grid>
                     
@@ -207,8 +151,9 @@ const DodajAgenciju=()=>
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                   onClick={dodajAgencijuHandler}
+                  data-testid='dodaj'
                 >
-                  Dodaj ponudu
+                  Dodaj agenciju
                 </Button>
                
               </Box>

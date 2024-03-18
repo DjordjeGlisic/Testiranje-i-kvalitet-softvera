@@ -136,7 +136,7 @@ const CitajAzurirajPonudu=()=>
               }}
             >
                
-              <Typography component="h1" variant="h3">
+              <Typography data-testid='text-azuriraj' component="h1" variant="h3">
                Azuriraj ponudu
               </Typography>
               
@@ -147,7 +147,7 @@ const CitajAzurirajPonudu=()=>
                     
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='naziv'>
                                 {"Naziv ponude-"+ponuda.nazivPonude}
                             </h1>
                         </Item>
@@ -155,71 +155,41 @@ const CitajAzurirajPonudu=()=>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nov naziv"
-                            type="text"
-                            id="minut"
-                            defaultValue={ponuda.nazivPonude}
-                            autoComplete="minut"
-                            onChange={nazivPonudeHandler}
-                        />
+                        <input type="text" data-testid='unos-naziv' name="firstname" placeholder="Unesite novi naziv ponude" onChange={nazivPonudeHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                        <h1>{"Naziv aerodroma-"+ponuda.nazivAerodroma}</h1>
+                        <h1 data-testid='aerodrom'>{"Naziv aerodroma-"+ponuda.nazivAerodroma}</h1>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nov aerodrom"
-                            type="text"
-                            id="minut"
-                            defaultValue={ponuda.nazivAerodroma}
-                            autoComplete="minut"
-                            onChange={nazivAerodromaHandler}
-                        />
+                        <input type="text" data-testid='unos-aerodrom' name="firstname" placeholder="Unesite novi naziv aerodroma" onChange={nazivAerodromaHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid xs={6}>
                         <Item>
-                        <h1>{"Grad polaska broda-"+ponuda.gradPolaskaBroda}</h1>
+                        <h1 data-testid='grad'>{"Grad polaska broda-"+ponuda.gradPolaskaBroda}</h1>
                     
                     </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Novi grad polaska broda"
-                            type="text"
-                            id="minut"
-                            defaultValue={ponuda.gradPolaskaBroda}
-                            autoComplete="minut"
-                            onChange={gradPolaskaBrodaHandler}
-                        />
+                        <input type="text" data-testid='unos-grad' name="firstname" placeholder="Unesite novi grad sa koga polazi brod" onChange={gradPolaskaBrodaHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='polazak'>
                                 {"Datum polaska-"+ponuda.datumPolaska}
                             </h1>
                         </Item>
@@ -228,24 +198,14 @@ const CitajAzurirajPonudu=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite nov datum polaska"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={datumPolaskaHandler}
-                            
-                        />
+                        <input type="text" data-testid='unos-polazak' name="firstname" placeholder="Unesite novi datum pocetka putovanja" onChange={datumPolaskaHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='dolazak'>
                                 {"Datum dolaska-"+ponuda.datumDolaska}
                             </h1>
                         </Item>
@@ -254,24 +214,14 @@ const CitajAzurirajPonudu=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite nov datum dolaska"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={datumDolaskaHandler}
-                            
-                        />
+                        <input type="text" data-testid='unos-dolazak' name="firstname" placeholder="Unesite novi datum kraja putovanja" onChange={datumDolaskaHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='bez'>
                                 {"Cena smestaja bez hrane u evrima-"+ponuda.cenaSmestajaBezHrane}
                             </h1>
                         </Item>
@@ -280,24 +230,14 @@ const CitajAzurirajPonudu=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite novu cenu smestaja bez hrane"
-                            type="number"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={cenaSmestajaBezHraneHandler}
-                            
-                        />
+                        <input type="number" data-testid='unos-bez' name="firstname" placeholder="Unesite novu cenu smestaja bez hrane u evrima" onChange={cenaSmestajaBezHraneHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='sa'>
                                 {"Cena smestaja sa hranom u evrima-"+ponuda.cenaSmestajaSaHranom}
                             </h1>
                         </Item>
@@ -306,24 +246,14 @@ const CitajAzurirajPonudu=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite novu cenu smestaja sa hranom"
-                            type="number"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={cenaSmestajaSaHranomHandler}
-                            
-                        />
+                        <input type="number" data-testid='unos-sa' name="firstname" placeholder="Unesite novu cenu smestaja sa hranom u evrima" onChange={cenaSmestajaSaHranomHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
-                          <h1>
+                          <h1 data-testid='opis'>
                                 {"Opis putovanja-"+ponuda.opisPutovanja}
                             </h1>
                         </Item>
@@ -332,28 +262,18 @@ const CitajAzurirajPonudu=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Unesite novi opis"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={opisPutovanjaHandler}
-                            
-                        />
+                        <input type="text" data-testid='unos-opis' name="firstname" placeholder="Unesite novi kratak opis putovanja sa najmanje 10 slova" onChange={opisPutovanjaHandler}/>
+              
               
                         </Item>
                     </Grid>
                     <Grid xs={2}>
-                      <Item><h1>Lista gradova koji se obilaze:</h1></Item>
+                      <Item><h1 data-testid='lista'>Lista gradova koji se obilaze:</h1></Item>
                     </Grid>
                     <Grid xs={10}>
                     <Item>
-                      {ponuda.listaGradova.map(element => (
-                        <h3 key={element}>{element}</h3>
+                      {ponuda.listaGradova.map((element,index) => (
+                        <h3 data-testid={'Grad'+index} key={element}>{element}</h3>
                       ))}
                     </Item>
                   </Grid>
@@ -363,7 +283,7 @@ const CitajAzurirajPonudu=()=>
 
                   <Grid xs={12}>
             <Item>
-              <h1>Unesite nove destinacije prethodne destinacije ce biti obrisane</h1>
+              <h1 data-testid='nove'>Unesite nove destinacije prethodne destinacije ce biti obrisane</h1>
             </Item>
           </Grid>
         <Grid xs={10}>
@@ -371,21 +291,15 @@ const CitajAzurirajPonudu=()=>
                 
               <FormControl variant="filled" sx={{width:'400px'}} >
                      
-                      <TextField
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={tip}
-                      onChange={handleChangeTip}
-                      >
-                    
-                      </TextField>
+              <input type="text" value={tip} data-testid='unos-Grad' name="firstname" placeholder="Unesite novu desinaciju" onChange={handleChangeTip}/>
+              
                   </FormControl>
                   </Item>
           
           </Grid>
           <Grid xs={2}>
             <Item>
-              <Button variant='contained' onClick={gradoviPressHandler}>Unesi grad</Button>
+              <Button variant='contained' data-testid='dugme-grad' onClick={gradoviPressHandler}>Unesi grad</Button>
             </Item>
           </Grid>
         <Grid xs={12}>
@@ -395,7 +309,7 @@ const CitajAzurirajPonudu=()=>
         return (
           <li key={ind}>
             <Chip
-              
+              data-testid={'grad'+ind}
               label={data}
               onDelete={(event) => btnHandler(event,data)}
             />
@@ -419,6 +333,7 @@ const CitajAzurirajPonudu=()=>
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                   onClick={azurirajPonuduHandler}
+                  data-testid='dugme-azuriraj'
                 >
                   Azuriraj ponudu
                 </Button>

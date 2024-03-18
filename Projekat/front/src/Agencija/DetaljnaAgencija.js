@@ -113,26 +113,26 @@ const DetaljnaAgencija=()=>
         
         {value===1&&(<Card sx={{ marginLeft:'380px',marginTop:'10px',width:'740px' ,height:'7800px',backgroundColor:'#c7d6ed',alignItems:'center',justifyContent:'center',alignContent:'center'}}>
       <CardContent sx={{marginTop:'-70px',padding:'100px'}}>
-      <Typography sx={{ fontSize: 48,padding:'30px' }} color="text.primary" gutterBottom>
+      <Typography  sx={{ fontSize: 48,padding:'30px' }} color="text.primary" gutterBottom>
         Naziv Agencije 
         </Typography>
-        <Typography sx={{ fontSize: 48,padding:'30px' }} color="#591905" gutterBottom>
+        <Typography data-testid='naziv' sx={{ fontSize: 48,padding:'30px' }} color="#591905" gutterBottom>
         {agencija.naziv}
         </Typography>
         <hr/>
-        <Typography sx={{ fontSize: 28}} color="text.primary" gutterBottom>
+        <Typography  sx={{ fontSize: 28}} color="text.primary" gutterBottom>
          Telefon:</Typography>
-          <Typography sx={{fontSize:28}} color="#591905" gutterBottom>
+          <Typography data-testid='telefon' sx={{fontSize:28}} color="#591905" gutterBottom>
           {agencija.telefon}</Typography> 
           <br/> 
-          <Typography sx={{ fontSize: 28}} color="text.primary" gutterBottom>
+          <Typography  sx={{ fontSize: 28}} color="text.primary" gutterBottom>
           Adresa:</Typography>
-          <Typography sx={{fontSize:28}} color="#591905" gutterBottom>
+          <Typography data-testid='adresa' sx={{fontSize:28}} color="#591905" gutterBottom>
           {agencija.adresa}</Typography> 
           <br/> 
           <Typography sx={{ fontSize: 28}} color="text.primary" gutterBottom>
           Email:</Typography>
-          <Typography sx={{fontSize:28}} color="#591905" gutterBottom>
+          <Typography data-testid='email' sx={{fontSize:28}} color="#591905" gutterBottom>
           {agencija.email}</Typography> 
           <br/> 
           <CardContent>
@@ -142,7 +142,7 @@ const DetaljnaAgencija=()=>
       </CardContent>
       <Typography sx={{ fontSize: 28}} color="text.primary" gutterBottom>
           Broj korisnika koji su agenciju ocenili:</Typography>
-          <Typography sx={{fontSize:28}} color="#591905" gutterBottom>
+          <Typography data-testid='broj' sx={{fontSize:28}} color="#591905" gutterBottom>
           {agencija.brojKorisnikaKojiSuOcenili}</Typography> 
           <br/> 
         
@@ -150,27 +150,28 @@ const DetaljnaAgencija=()=>
         <hr/>
         {email.startsWith('agencija')===false&&(<><Typography sx={{ fontSize: 28}} color="text.primary" gutterBottom>
           Dajte ocenu agenciji:</Typography>
-        <Rating name="size-large" defaultValue={ocena} size="large"  onChange={(event, newValue) => {
-    setOcena(newValue);
-  }}/>
-  <Button variant='contained' disabled={email===null?true:false} onClick={oceniHandler}>Oceni</Button>
+ 
+            <input type="number" data-testid='unos-ocena' name="firstname" placeholder="Dajte ocenu agenciji od 1-5" onChange={(event, newValue) => {
+    setOcena(newValue);}}/>
+              
+  <Button variant='contained' data-testid='dugme-oceni' disabled={email===null?true:false} onClick={oceniHandler}>Oceni</Button>
   </>)}
   <hr/>
-  <h1>Ponude koja agencija nudi</h1>
+  <h1 data-testid='ponude'> Ponude koja agencija nudi</h1>
   <hr/>
-        {ponude.map((element) => (
+        {ponude.map((element,index) => (
             <Grid sx={4}>
             <Item>
-    <Kartica ponuda={element} />
+    <Kartica ponuda={element} indeks={index}  />
     </Item>
             </Grid>))}
             <hr/>
-  <h1>Korisnici si u kontaktu sa agencijom</h1>
+  <h1 data-testid='korisnici'>Korisnici si u kontaktu sa agencijom</h1>
   <hr/>
-            {korisnici.map((element) => (
+            {korisnici.map((element,index) => (
             <Grid sx={4}>
             <Item>
-    <KarticaKorisnika korisnik={element} />
+    <KarticaKorisnika korisnik={element} indeks={index} />
     </Item>
             </Grid>))}
      

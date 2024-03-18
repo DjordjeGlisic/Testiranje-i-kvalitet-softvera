@@ -133,7 +133,7 @@ const Poruka=(props)=>{
        
         <Item sx={{backgroundColor:'green'}}>
            <Avatar>{"A"}</Avatar>
-            <Paper elevation={24} >
+            <Paper elevation={24} data-testid={props.m.sadrzaj} >
               {props.m.sadrzaj}
             </Paper>
 
@@ -141,10 +141,10 @@ const Poruka=(props)=>{
        
     </Grid>
     <Grid xs={3}>
-          <Button variant='contained' onClick={azurirajHandler}>Azuriraj</Button>
+          <Button variant='contained' onClick={azurirajHandler} data-testid={'Azuriraj'+props.m.sadrzaj}>Azuriraj</Button>
     </Grid>
     <Grid xs={3}>
-          <Button variant='contained'  onClick={obrisiHandler}>Obrisi</Button>
+          <Button variant='contained'  onClick={obrisiHandler} data-testid={'Obrisi'+props.m.sadrzaj}>Obrisi</Button>
     </Grid>
 
      </>)}

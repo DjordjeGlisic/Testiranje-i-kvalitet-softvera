@@ -109,7 +109,7 @@ const CitajAzurirajAgenciju=()=>
               }}
             >
                
-              <Typography component="h1" variant="h3">
+              <Typography component="h1" variant="h3" data-testid='Azuriraj-agenciju'>
                Azuriraj agenciju
               </Typography>
               
@@ -119,94 +119,51 @@ const CitajAzurirajAgenciju=()=>
                 
                     <Grid xs={6}>
                         <Item>
-                            <h1>{agencija.naziv}</h1>
+                            <h1 data-testid='naziv'>{agencija.naziv}</h1>
                         </Item>
                     </Grid>
                  
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nov naziv agencije"
-                            type="text"
-                            id="minut"
-                            
-                            autoComplete="minut"
-                            onChange={nazivHandler}
-                        />
+                        <input type="text" data-testid='nov-naziv' name="firstname" placeholder="Unesite novi naziv agencije" onChange={nazivHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid xs={6}>
                         <Item>
-                            <h1>{agencija.adresa}</h1>
+                            <h1 data-testid='adresa'>{agencija.adresa}</h1>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nova adresa"
-                            type="text"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={adresaHandler}
-                        />
+                        <input type="text" data-testid='nova-adresa' name="firstname" placeholder="Unesite novu adresu" onChange={adresaHandler}/>
               
                         </Item>
                     </Grid>
                     <Grid xs={6}>
                         <Item>
-                            <h1>{agencija.telefon}</h1>
+                            <h1 data-testid='telefon'>{agencija.telefon}</h1>
                         </Item>
                     </Grid>
                     <Grid item xs={6}>
                         <Item>
                       
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nov telefon"
-                            type="numbert"
-                            id="minut"
-                          
-                            autoComplete="minut"
-                            onChange={telefonHandler}
-                        />
+                        <input type="number" data-testid='nov-telefon' name="firstname" placeholder="Unesite novi broj telefona" onChange={telefonHandler}/>
               
                         </Item>
                     </Grid>
                    
                     <Grid xs={6}>
                         <Item>
-                            <h1>{agencija.email}</h1>
+                            <h1 data-testid='email'>{agencija.email}</h1>
                         </Item>
                     </Grid>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Novi email"
-                            type="email"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={mejlHandler}
-                            
-                        />
+                        <input type="email" data-testid='novi-email' name="firstname" placeholder="Unesite novi email" onChange={mejlHandler}/>
               
                         </Item>
                     </Grid>
@@ -215,18 +172,7 @@ const CitajAzurirajAgenciju=()=>
                           <Grid item xs={6}>
                         <Item>
                        
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="minut"
-                            label="Nova sifra"
-                            type="password"
-                            id="minut"
-                            autoComplete="minut"
-                            onChange={sifraHandler}
-                            
-                        />
+                        <input type="password" data-testid='nova-sifra' name="firstname" placeholder="Unesite novu sifru" onChange={sifraHandler}/>
               
                         </Item>
                     </Grid>
@@ -247,8 +193,9 @@ const CitajAzurirajAgenciju=()=>
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                   onClick={azurirajAgencijuHandler}
+                  data-testid='azuriraj'
                 >
-                  Azuriraj agenciju
+                  Potvrdi azuriranje
                 </Button>
                
               </Box>
