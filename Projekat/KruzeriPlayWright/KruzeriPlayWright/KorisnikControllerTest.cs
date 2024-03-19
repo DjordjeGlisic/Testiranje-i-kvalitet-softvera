@@ -166,6 +166,8 @@ namespace KruzeriPlayWright
 
 
             });
+            string id = jsonResponse?.GetProperty("id").ToString();
+            await using var response1 = await Request.DeleteAsync($"/Korisnik/DeleteUser/{id}");
         }
         [Test]
         [TestCase("korisnikemail@gmail.com", "korisnik123")]
@@ -294,6 +296,10 @@ namespace KruzeriPlayWright
         [TearDown]
         public async Task TearDownAPITesting()
         {
+            await using var response1 = await Request.DeleteAsync($"/Korisnik/DeleteUser/{IDKorisnika1}");
+            await using var response2 = await Request.DeleteAsync($"/Korisnik/DeleteUser/{IDKorisnika2}");
+            await using var response3 = await Request.DeleteAsync($"/Administrator/ObrisiAgenciju/{IDAgencije}");
+            await using var response4 = await Request.DeleteAsync($"/Ponuda/ObrisiPonudu/{IDPonude}");
             await Request.DisposeAsync();
         }
 

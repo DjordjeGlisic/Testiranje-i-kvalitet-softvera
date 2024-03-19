@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using System.Collections.Specialized;
+using static Kruzeri.Controllers.AdministratorController;
 using static Kruzeri.Controllers.KorisnikController;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -18,8 +19,7 @@ namespace KruzeriNunit
         private string ID1, ID2, ID3;
         private string IDPonude;
         private string IDAgencije;
-        private List<string> IDKreiranih;
-
+        
 
         [OneTimeSetUp]
         public async Task Setup()
@@ -38,19 +38,19 @@ namespace KruzeriNunit
             _korisnikController = new KorisnikController(logger, neo4jService, configuration);
             if(ID1==null)
             {
-                var korisnik1 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Marko", Prezime = "Rakic", Email = "markorakic@gmail.com", Sifra = "marko123", Telefon = 3213213210, DatumRodjenja = "7.7.2001", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
+                var korisnik1 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Marko", Prezime = "Rakic", Email = "korisnikmarkorakic@gmail.com", Sifra = "marko123", Telefon = 3213213210, DatumRodjenja = "7.7.2001", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
                 ID1 = korisnik1.Id;
 
             }
             if(ID2==null)
             {
-                var korisnik2 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Trajko", Prezime = "Trajkovic", Email = "trajkotrajkovic@gmail.com", Sifra = "trajko123", Telefon = 3213213210, DatumRodjenja = "1.4.2003", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
+                var korisnik2 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Trajko", Prezime = "Trajkovic", Email = "korisniktrajkotrajkovic@gmail.com", Sifra = "trajko123", Telefon = 3213213210, DatumRodjenja = "1.4.2003", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
                 ID2 = korisnik2.Id;
 
             }
             if(ID3==null)
             {
-                var korisnik3 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Vlajko", Prezime = "Vlajkovic", Email = "vlajkovlajkovic@gmail.com", Sifra = "vlajko123", Telefon = 3213213210, DatumRodjenja = "27.3.2005", Grad = "Leskovac", Adresa = "TRajkovicRajka10" });
+                var korisnik3 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Vlajko", Prezime = "Vlajkovic", Email = "korisnikvlajkovlajkovic@gmail.com", Sifra = "vlajko123", Telefon = 3213213210, DatumRodjenja = "27.3.2005", Grad = "Leskovac", Adresa = "TRajkovicRajka10" });
                 ID3 = korisnik3.Id;
 
             }
@@ -86,16 +86,16 @@ namespace KruzeriNunit
                 }
                 );
             IDPonude = ponuda.Id;
-            IDKreiranih = new List<string>();
+        
 
 
 
         }
        
         //TESTIRA SE DODAVANJE KORISNIKA
-        [TestCase("0", "Aleksa", "Lakic", "aleksalakic@gmail.com", "aleksic123", 1231231231, "3.8.1992", "Pirot", "Adresovica30")]
-        [TestCase("0", "Janko", "Jakic", "jankojakic@gmail.com", "janko123", 7111009201, "2.8.1999", "Nis", "Niska10")]
-        [TestCase("0", "Marko", "Markovic", "markomarkovic@gmail.com", "marko123", 1333009201, "1.8.2000", "Beograd", "Beogradska10")]
+        [TestCase("0", "Aleksa", "Lakic", "korisnik1@gmail.com", "aleksic123", 1231231231, "3.8.1992", "Pirot", "Adresovica30")]
+        [TestCase("0", "Janko", "Jakic", "korisnik2@gmail.com", "janko123", 7111009201, "2.8.1999", "Nis", "Niska10")]
+        [TestCase("0", "Marko", "Markovic", "admin3@gmail.com", "marko123", 1333009201, "1.8.2000", "Beograd", "Beogradska10")]
         public async Task TestDodajKorisnikaReturnObjectOkResult(string Idk, string Imek, string Prezimek, string Emailk, string Sifrak, long Telefonk, string DatumRodjenjak, string Gradk, string Adresak)
         {
             Korisnik korisnik = new Korisnik
@@ -118,7 +118,7 @@ namespace KruzeriNunit
             Assert.That(okResult, Is.Not.Null);
 
             var dodatKorisnik = okResult.Value as Korisnik;
-            IDKreiranih.Add(dodatKorisnik.Id);
+            
             Assert.That(dodatKorisnik, Is.Not.Null);
 
             Assert.That(Imek, Is.EqualTo(dodatKorisnik.Ime));
@@ -133,7 +133,33 @@ namespace KruzeriNunit
             Assert.That(DatumRodjenjak, Is.EqualTo(dodatKorisnik.DatumRodjenja));
             Assert.That(Gradk, Is.EqualTo(dodatKorisnik.Grad));
             Assert.That(Adresak, Is.EqualTo(dodatKorisnik.Adresa));
-            //await _korisnikController.DeleteUser(dodatKorisnik.Id);
+            await _korisnikController.DeleteUser(dodatKorisnik.Id);
+        }
+        [Test]
+        public async Task TestDodajKorisnikaReturnsBadRequestEmailKorisnika()
+        {
+            Korisnik korisnik = new Korisnik
+            {
+                Id = "",
+                Ime = "Imek",
+                Prezime = "Prezimek",
+                Email = "usermarko@gmail.com",
+                Sifra = "Sifrak123123",
+                Telefon = 1234567890,
+                DatumRodjenja = "11.8.2002",
+                Grad = "Zajecar",
+                Adresa = "Adrea neka"
+            };
+            var result = await _korisnikController.RegisterUser(korisnik);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Email korisnika koji se dodaje mora da sadrzi rec korisnik ili admin"));
+
         }
         [Test]
         public async Task TestDodajKorisnikaObjectErrorResultSifra()
@@ -143,7 +169,7 @@ namespace KruzeriNunit
                 Id = "",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "korisnikimeprezime@gmail.com",
                 Sifra = "320a",
                 Telefon = 22108130,
                 DatumRodjenja = "2.1.1981",
@@ -169,7 +195,7 @@ namespace KruzeriNunit
                 Id = "",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@yahoo.com",
+                Email = "korisnikimeprezime@yahoo.com",
                 Sifra = "320imeprezime",
                 Telefon = 22108130,
                 DatumRodjenja = "2.1.1981",
@@ -195,7 +221,7 @@ namespace KruzeriNunit
                 Id = "",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "administratorimeprezime@gmail.com",
                 Sifra = "123123ahahaah",
                 Telefon = 380980280,
                 DatumRodjenja = "2.1.1981",
@@ -214,7 +240,7 @@ namespace KruzeriNunit
 
         }
         //TESTIRA SE CITANJE KORISNIKA
-        [TestCase("vlajkovlajkovic@gmail.com", "vlajko123")]
+        [TestCase("korisnikmarkorakic@gmail.com", "marko123")]
         
         public async Task TestProcitajKorisnikaReturnsOkObjectResult(string email, string sifra)
         {
@@ -251,7 +277,7 @@ namespace KruzeriNunit
         {
             var korisnik = new KorisnikData
             {
-                Email = "aleksandaraleksandrovic@mail.com",
+                Email = "korisnikaleksandaraleksandrovic@mail.com",
                 Sifra = "1231231231"
             };
             var result = await _korisnikController.LoginUser(korisnik);
@@ -271,7 +297,7 @@ namespace KruzeriNunit
         {
             var korisnik = new KorisnikData
             {
-                Email = "markomarkovic@gmail.com",
+                Email = "korisnikmarkomarkovic@gmail.com",
                 Sifra = "m123"
             };
             var result = await _korisnikController.LoginUser(korisnik);
@@ -290,7 +316,7 @@ namespace KruzeriNunit
         {
             var korisnik = new KorisnikData
             {
-                Email = "rajkorajkovic@gmail.com",
+                Email = "korisnikrajkorajkovic@gmail.com",
                 Sifra = "rajko123"
             };
             var result = await _korisnikController.LoginUser(korisnik);
@@ -327,16 +353,7 @@ namespace KruzeriNunit
 
             var ucitanKorisnik2 = okResult2.Value as Korisnik;
             korisnici.Add(ucitanKorisnik2);
-            var result3 = await _korisnikController.ReadUser(ID3);
-
-            Assert.That(result3, Is.Not.Null);
-            Assert.That(result3.Result, Is.TypeOf<OkObjectResult>());
-
-            var okResult3 = result3.Result as OkObjectResult;
-            Assert.That(okResult3, Is.Not.Null);
-
-            var ucitanKorisnik3 = okResult3.Value as Korisnik;
-            korisnici.Add(ucitanKorisnik3);
+           
             foreach (Korisnik ucitanKorisnik in korisnici)
             {
                 Assert.That(ucitanKorisnik, Is.Not.Null);
@@ -382,7 +399,7 @@ namespace KruzeriNunit
         }
         //TESTIRA SE AZURIRANJE KORISNIKA
        
-        [TestCase("Zlatko", "Zlatkovic", "zlatkozlatkovic@gmail.com", "zlatko123", 4312210810, "23.11.1970", "Zajecar", "Zajecarska10")]
+        [TestCase("Zlatko", "Zlatkovic", "korisnikzlatkozlatkovic@gmail.com", "zlatko123", 4312210810, "23.11.1970", "Zajecar", "Zajecarska10")]
         public async Task TestAzurirajKorisnikaReturnsOkObjectResult(string ime, string prezime, string email, string sifra, long telefon, string datum, string grad, string adresa)
         {
             Korisnik korisnik = new Korisnik
@@ -397,7 +414,7 @@ namespace KruzeriNunit
                 Grad = grad,
                 Adresa = adresa
             };
-            var result = await _korisnikController.UpdateUser(ID1, korisnik);
+            var result = await _korisnikController.UpdateUser(ID2, korisnik);
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
 
@@ -422,6 +439,33 @@ namespace KruzeriNunit
 
 
         }
+
+        [Test]
+        public async Task TestAzurirajKorisnikaReturnsBadRequestEmailKorisnika()
+        {
+            Korisnik korisnik = new Korisnik
+            {
+                Id = "",
+                Ime = "Imek",
+                Prezime = "Prezimek",
+                Email = "usermarko@gmail.com",
+                Sifra = "Sifrak123123",
+                Telefon = 1234567890,
+                DatumRodjenja = "11.8.2002",
+                Grad = "Zajecar",
+                Adresa = "Adrea neka"
+            };
+            var result = await _korisnikController.UpdateUser(ID2,korisnik);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Email korisnika koji se azurira mora da sadrzi rec korisnik ili admin"));
+
+        }
         [Test]
         public async Task TestAzurirajKorisnikaObjectErrorResultSifra()
         {
@@ -430,7 +474,7 @@ namespace KruzeriNunit
                 Id = "170956528517095652851709565285",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "korisnikimeprezime@gmail.com",
                 Sifra = "320a",
                 Telefon = 22108130,
                 DatumRodjenja = "2.1.1981",
@@ -456,7 +500,7 @@ namespace KruzeriNunit
                 Id = "170956528517095652851709565285",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@yahoo.com",
+                Email = "korisnikimeprezime@yahoo.com",
                 Sifra = "320imeprezime",
                 Telefon = 22108130,
                 DatumRodjenja = "2.1.1981",
@@ -482,7 +526,7 @@ namespace KruzeriNunit
                 Id = "170956528517095652851709565285",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "korisnikimeprezime@gmail.com",
                 Sifra = "123123ahahaah",
                 Telefon = 380980280,
                 DatumRodjenja = "2.1.1981",
@@ -508,7 +552,7 @@ namespace KruzeriNunit
                 Id = "170956528517095652851709565285",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "korisnikimeprezime@gmail.com",
                 Sifra = "123123ahahaah",
                 Telefon = 1234567891,
                 DatumRodjenja = "2.1.1981",
@@ -534,7 +578,7 @@ namespace KruzeriNunit
                 Id = "1798765432",
                 Ime = "Ime",
                 Prezime = "Prezime",
-                Email = "imeprezime@gmail.com",
+                Email = "korisnikimeprezime@gmail.com",
                 Sifra = "123123ahahaah",
                 Telefon = 1234567891,
                 DatumRodjenja = "2.1.1981",
@@ -577,16 +621,7 @@ namespace KruzeriNunit
 
             poruka = okResult.Value as string;
             Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno rezervisana ponuda"));
-            result = await _korisnikController.RezervisiPonudu(ID3, IDPonude);
-
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.TypeOf<OkObjectResult>());
-
-            okResult = result as OkObjectResult;
-            Assert.That(okResult, Is.Not.Null);
-
-            poruka = okResult.Value as string;
-            Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno rezervisana ponuda"));
+          
 
         }
         [Test]
@@ -705,9 +740,8 @@ namespace KruzeriNunit
         [Test]
         public async Task TestObrisiKorisnikaReturnsOkObjectResult()
         {
-            foreach (var id in IDKreiranih)
-            {
-                var result = await _korisnikController.DeleteUser(id);
+          
+                var result = await _korisnikController.DeleteUser(ID3);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.TypeOf<OkObjectResult>());
@@ -718,7 +752,7 @@ namespace KruzeriNunit
                 var poruka = okResult.Value as string;
                 Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno obrisan korisnik."));
 
-            }
+            
 
         }
         [Test]

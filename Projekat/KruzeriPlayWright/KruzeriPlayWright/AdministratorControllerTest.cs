@@ -108,6 +108,9 @@ namespace KruzeriPlayWright
 
 
             });
+            string id = jsonResponse?.GetProperty("id").ToString();
+            await using var response1 = await Request.DeleteAsync($"/Administrator/ObrisiAgenciju/{id}");
+
         }
         [Test]
         public async Task PribaviAgencijeTest()
@@ -162,9 +165,21 @@ namespace KruzeriPlayWright
             var jsonResponse = await response.JsonAsync();
             Assert.That(jsonResponse, Is.Not.Null);
 
+            Assert.Multiple(() =>
+            {
+                Assert.That(jsonResponse?.GetProperty("id").ToString(), Is.EqualTo(IDAgencije1));
+                Assert.IsNotNull(jsonResponse?.GetProperty("naziv"));
+                Assert.IsNotNull(jsonResponse?.GetProperty("adresa"));
+                Assert.That(jsonResponse?.GetProperty("telefon").ToString().Length, Is.EqualTo(10));
+                Assert.IsNotNull(jsonResponse?.GetProperty("email").ToString());
+                Assert.IsNotNull(jsonResponse?.GetProperty("sifra").ToString());
 
 
-            Assert.That(jsonResponse?.GetProperty("id").ToString(), Is.EqualTo(IDAgencije1));
+
+            });
+
+
+
         }
         [TestCase("AgencijaAzurirana1", "Agencijska 11", 1234511110, "agencijatst1@gmail.com", "agencija123", 0, 0)]
         public async Task AzurirajAgencijuTest(string naziv, string adresa, long telefon, string email, string sifra, int prosecna, int broj)
@@ -229,6 +244,14 @@ namespace KruzeriPlayWright
             Assert.That(response.Status, Is.EqualTo(200));
             var jsonResponse = await response.JsonAsync();
             Assert.That(jsonResponse, Is.Not.Null);
+        }
+        [TearDown]
+        public async Task TearDownAPITesting()
+        {
+            await using var response1 = await Request.DeleteAsync($"/Administrator/ObrisiAgenciju/{IDAgencije1}");
+            await using var response2 = await Request.DeleteAsync($"/Poruka/ObrisiAgenciju/{IDAgencije2}");
+            
+            await Request.DisposeAsync();
         }
     }
 }

@@ -105,6 +105,7 @@ public class PorukaController : ControllerBase
             {
                 return BadRequest("Dati korisnik se nije dopisivao sa datom agencijom!");
             }
+            cet.ToList().OrderBy(poruka=>DateTime.Parse(poruka.Datum));
             return Ok(cet);
         }
         catch (Exception ex)

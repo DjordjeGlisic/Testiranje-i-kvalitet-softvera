@@ -20,7 +20,6 @@ namespace KruzeriNunit
         private AdministratorController _administratorController;
 
         private string ID1 = null, ID2 = null, ID3 = null;
-        private List<string> IDKreiranih;
        
 
         [OneTimeSetUp]
@@ -57,7 +56,7 @@ namespace KruzeriNunit
                     ID3 = agencija3.Id;
                 }
 
-                IDKreiranih = new List<string>();
+              
                 
             }
 
@@ -65,9 +64,9 @@ namespace KruzeriNunit
         
         // public AgencijaTests() { Setup(); }
         //TESTIRA SE DODAVANJE AGENCIJE
-        [TestCase("0", "BigStarTravell", "Niska18", 3120212102, "bigstartravell@gmail.com", "bigstar123", 7),Order(1)]
-        [TestCase("0", "BeogradAgency", "Beogradska18", 9419449390, "beogradska@gmail.com", "boegradksa123", 10)]
-        [TestCase("0", "NoviSadAgency", "Novosadska18", 4332331330, "novosadska@gmail.com", "novisad123", 7)]
+        [TestCase("0", "BigStarTravell", "Niska18", 3120212102, "agencijabigstartravell@gmail.com", "bigstar123", 7),Order(1)]
+        [TestCase("0", "BeogradAgency", "Beogradska18", 9419449390, "agencijabeogradska@gmail.com", "boegradksa123", 10)]
+        [TestCase("0", "NoviSadAgency", "Novosadska18", 4332331330, "agencijanovosadska@gmail.com", "novisad123", 7)]
         public async Task TestDodajAgencijuReturnObjectOkResult(string id, string naziv, string adresa, long telefon, string email, string pass, int rating)
         {
             TuristickaAgencija agencija = new TuristickaAgencija
@@ -90,7 +89,7 @@ namespace KruzeriNunit
             Assert.That(okResult, Is.Not.Null);
 
             var dodataAgencija = okResult.Value as TuristickaAgencija;
-            IDKreiranih.Add(dodataAgencija.Id);
+            string IDKreirane=dodataAgencija.Id;
             Assert.That(dodataAgencija, Is.Not.Null);
             Assert.That(id, Is.Not.EqualTo(dodataAgencija.Id));
             Assert.That(naziv, Is.EqualTo(dodataAgencija.Naziv));
@@ -104,7 +103,33 @@ namespace KruzeriNunit
             Assert.That(dodataAgencija.ProsecnaOcena, Is.EqualTo(0));
             Assert.That(dodataAgencija.BrojKorisnikaKojiSuOcenili, Is.EqualTo(0));
             Assert.That(dodataAgencija.ListaOcenaKorisnika, Has.Count.EqualTo(0));
+            await _administratorController.ObrisiAgenciju(IDKreirane);
             
+        }
+        [Test]
+        public async Task TestDodajAgencijuReturnsBadRequestEmailAgencija()
+        {
+            var agencija = new TuristickaAgencija
+            {
+                Id = "",
+                Naziv = "Naziv",
+                Adresa = "Adresa",
+                Telefon = 3213213210,
+                Email = "imeprezime@gmail.com",
+                Sifra = "320adasdasdas",
+                ProsecnaOcena = 10,
+                BrojKorisnikaKojiSuOcenili = 10
+            };
+            var result = await _administratorController.DodajAgenciju(agencija);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Email agencije koja se dodaje mora da sadrzi rec agencija"));
+
         }
         [Test]
         public async Task TestDodajAgencijuReturnsBadRequestSifra()
@@ -213,7 +238,7 @@ namespace KruzeriNunit
 
 
         }
-        [Test,Order(3)]
+        [Test]
         public async Task TestProcitajAgencijuReturnsBadRequestEmail()
         {
             var agencija = new AgencijaData
@@ -324,21 +349,7 @@ namespace KruzeriNunit
                 Assert.IsNotNull(ucitanaAgencija.ListaOcenaKorisnika);
                 Assert.That(ucitanaAgencija.Id, Is.EqualTo(ID2));
                
-                result = await _administratorController.PribaviAgencijuPoID(ID3);
-
-                Assert.That(result, Is.Not.Null);
-                Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
-
-                okResult = result.Result as OkObjectResult;
-                Assert.That(okResult, Is.Not.Null);
-
-                ucitanaAgencija = okResult.Value as TuristickaAgencija;
-                Assert.That(ucitanaAgencija, Is.Not.Null);
-
-                Assert.IsNotNull(ucitanaAgencija.Naziv);
-                Assert.IsNotNull(ucitanaAgencija.Adresa);
-                Assert.IsNotNull(ucitanaAgencija.ListaOcenaKorisnika);
-                Assert.That(ucitanaAgencija.Id, Is.EqualTo(ID3));
+              
             
 
             }
@@ -414,7 +425,31 @@ namespace KruzeriNunit
 
 
         }
-        
+        [Test]
+        public async Task TestAzurirajAgencijuReturnsBadRequestEmailAgencija()
+        {
+            var agencija = new TuristickaAgencijaAzur
+            {
+                Id =ID2,
+                Naziv = "Naziv",
+                Adresa = "Adresa",
+                Telefon = 1234567890,
+                Email = "imeprezime@gmail.com",
+                Sifra = "320aasdasdsa",
+              
+            };
+            var result = await _administratorController.AzurirajAgenciju(ID2,agencija);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Result, Is.TypeOf<BadRequestObjectResult>());
+
+            var losZahtev = result.Result as BadRequestObjectResult;
+            Assert.That(losZahtev, Is.Not.Null);
+
+            var sadrzaj = losZahtev.Value as string;
+            Assert.That(sadrzaj, Is.Not.Null.And.Contains("Email agencije koja se azurira mora da sadrzi rec agencija"));
+
+        }
+
         [Test]
         public async Task TestAzurirajAgencijuReturnsBadRequestSifra()
         {
@@ -514,7 +549,7 @@ namespace KruzeriNunit
         }
         
         [Test]
-        public async Task TestAzurirajKorisnikaObjectErrorResultNull()
+        public async Task TestAzurirajAgencijuObjectErrorResultNull()
         {
             var agencija = new TuristickaAgencijaAzur
             {
@@ -587,30 +622,11 @@ namespace KruzeriNunit
             Assert.That(preIposle.OcenePre, Is.Not.EqualTo(preIposle.OcenePosle));
             Assert.That(preIposle.KorisniciPosle, Is.EqualTo(preIposle.KorisniciPre + 1));
 
-            provera = await _administratorController.PribaviAgencijuPoID(ID3);
-            result = await _administratorController.KorisnikDajeOcenuAgenciji(ID3, ocena);
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
-
-            okResult = result.Result as OkObjectResult;
-            Assert.That(okResult, Is.Not.Null);
-            Assert.That(provera, Is.Not.Null);
-            Assert.That(provera.Result, Is.TypeOf<OkObjectResult>());
-
-            okResultProvera = provera.Result as OkObjectResult;
-            Assert.That(okResultProvera, Is.Not.Null);
-            prethodnaVerzija = okResultProvera.Value as TuristickaAgencija;
-            preIposle = okResult.Value as OcenaPosle;
-            Assert.That(preIposle, Is.Not.Null);
-            Assert.That(ID3, Is.EqualTo(prethodnaVerzija.Id));
-            Assert.That(ID3, Is.EqualTo(preIposle.AgencijaID));
-            Assert.That(preIposle.ProsecnaOcenaPre, Is.EqualTo(prethodnaVerzija.ProsecnaOcena));
-            Assert.That(preIposle.OcenePre, Is.Not.EqualTo(preIposle.OcenePosle));
-            Assert.That(preIposle.KorisniciPosle, Is.EqualTo(preIposle.KorisniciPre + 1));
+          
 
         }
         [Test]
-        public async Task TestODodajOcenuAgencijiReturnsBadRequestNull()
+        public async Task TestDodajOcenuAgencijiReturnsBadRequestNull()
         {
 
             var result = await _administratorController.KorisnikDajeOcenuAgenciji("123455789-ba56-49bc-ac11-664047438548", 4);
@@ -626,7 +642,7 @@ namespace KruzeriNunit
 
         }
         [Test]
-        public async Task TestODodajOcenuAgencijiReturnsBadRequestID()
+        public async Task TestDodajOcenuAgencijiReturnsBadRequestID()
         {
 
             var result = await _administratorController.KorisnikDajeOcenuAgenciji("1198765432", 4);
@@ -642,7 +658,7 @@ namespace KruzeriNunit
 
         }
         [Test]
-        public async Task TestODodajOcenuAgencijiReturnsBadRequestOcena()
+        public async Task TestDodajOcenuAgencijiReturnsBadRequestOcena()
         {
 
             var result = await _administratorController.KorisnikDajeOcenuAgenciji(ID1, 0);
@@ -663,9 +679,8 @@ namespace KruzeriNunit
         public async Task TestObrisiAgencijuReturnsOkObjectResult()
         {
            
-            foreach (var id in IDKreiranih)
-            {
-               var result = await _administratorController.ObrisiAgenciju(id);
+          
+               var result = await _administratorController.ObrisiAgenciju(ID3);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.TypeOf<OkObjectResult>());
@@ -675,7 +690,7 @@ namespace KruzeriNunit
 
               var  poruka = okResult.Value as string;
                 Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno obrisana agencija."));
-            }
+            
         }
 
         [Test]

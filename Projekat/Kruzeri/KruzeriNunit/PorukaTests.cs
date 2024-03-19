@@ -23,7 +23,7 @@ namespace KruzeriNunit
         private string ID1=null, ID2=null, ID3=null;
         private string IDKorisnika=null;
         private string IDAgencije=null;
-        private List<string> IDKreiranih;
+     
         [OneTimeSetUp]
         public async Task Setup()
         {
@@ -40,10 +40,10 @@ namespace KruzeriNunit
 
         // Instanciranje kontrolera sa stvarnim implementacijama servisa i okoline
         _porukaController = new PorukaController(logger, neo4jService, configuration,mockHubContext.Object);
-            IDKreiranih = new List<string>();
+           
             if(IDKorisnika==null)
             {
-                var korisnik1 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Marko", Prezime = "Rakic", Email = "markorakic@gmail.com", Sifra = "marko123", Telefon = 3213213210, DatumRodjenja = "7.7.2001", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
+                var korisnik1 = await neo4jService.RegisterAsync(new Korisnik { Id = "", Ime = "Marko", Prezime = "Rakic", Email = "korisnikmarkorakic@gmail.com", Sifra = "marko123", Telefon = 3213213210, DatumRodjenja = "7.7.2001", Grad = "Leskovac", Adresa = "RajkovicRajka10" });
                 IDKorisnika = korisnik1.Id;
             }
             if(IDAgencije==null)
@@ -93,7 +93,7 @@ namespace KruzeriNunit
             Assert.That(okResult, Is.Not.Null);
 
             var dodataPoruka = okResult.Value as Poruka;
-            IDKreiranih.Add(dodataPoruka.Id);
+            
             Assert.That(dodataPoruka, Is.Not.Null);
             Assert.That(poruka.Id, Is.EqualTo(dodataPoruka.Id));
             Assert.That(IDKorisnika, Is.EqualTo(dodataPoruka.IdKorisnika));
@@ -102,7 +102,7 @@ namespace KruzeriNunit
             Assert.That(datum, Is.EqualTo(dodataPoruka.Datum));
             Assert.That(poslataOdStraneAgencije, Is.EqualTo(dodataPoruka.PoslataOdStraneAgencije));
             Assert.That(poslataOdStraneKorisnika, Is.EqualTo(dodataPoruka.PoslataOdStraneKorisnika));
-
+            await _porukaController.ObrisiPoruku(dodataPoruka.Id);
         }
         [Test]
         public async Task TestDodajPorukuReturnsBadRequestIDKorisnika()
@@ -666,7 +666,7 @@ namespace KruzeriNunit
 
         }
         [Test]
-        public async Task TestAzurirajPorukuReturnsBadRequestProcitana()
+        public async Task TestAzurirajPorukuReturnsBadRequestPoslata()
         {
             var poruka = new Poruka
             {
@@ -746,9 +746,8 @@ namespace KruzeriNunit
        [Test]
         public async Task TestObrisiPorukuReturnsOkObjectResult()
         {
-            foreach(var PorukaID in IDKreiranih)
-            {
-                var result = await _porukaController.ObrisiPoruku(PorukaID);
+           
+                var result = await _porukaController.ObrisiPoruku(ID3);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.TypeOf<OkObjectResult>());
@@ -759,7 +758,7 @@ namespace KruzeriNunit
                 var poruka = okResult.Value as string;
                 Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno obrisana poruka."));
 
-            }
+            
         }
         [Test]
         public async Task TestObrisiPorukuReturnsBadRequestNull()

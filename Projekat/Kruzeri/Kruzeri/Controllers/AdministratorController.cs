@@ -32,6 +32,8 @@ public class AdministratorController : ControllerBase
                 return BadRequest("Telefon mora sadrzati tacno 10 cifre");
             if (!agencija.Email.Contains("@gmail.com"))
                 return BadRequest("Email mora sadrzati karaktere @gmail.com");
+            if (!agencija.Email.Contains("agencija"))
+                return BadRequest("Email agencije koja se dodaje mora da sadrzi rec agencija");
             var result=await _neo4jService.DodajAgencijuAsync(agencija);
             return Ok(result);
         }
@@ -128,6 +130,8 @@ public class AdministratorController : ControllerBase
                 return BadRequest("Nova sifra agencije mora sadrzati makar 8 karaktera");
             if (agencija.Telefon.ToString().Length != 10)
                 return BadRequest("Novi broj telefona agencije mora sadrzati tacno 10 cifara");
+            if (!agencija.Email.Contains("agencija"))
+                return BadRequest("Email agencije koja se azurira mora da sadrzi rec agencija");
             var Agencija=await _neo4jService.PribaviAgencijuPoIDAsync(AgencijaID);
             if (Agencija == null)
                 return BadRequest("Agencija sa zadatim ID ne postoji u bazi");

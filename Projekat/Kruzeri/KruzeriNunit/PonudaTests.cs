@@ -22,7 +22,7 @@ namespace KruzeriNunit
         private string ID1=null, ID2=null, ID3=null;
         private string IDAgencije=null;
         private string IDKorisnika = null;
-        private List<string> IDKreiranih;
+       
         [OneTimeSetUp]
         public async Task Setup()
         {
@@ -34,7 +34,7 @@ namespace KruzeriNunit
             gradovi1 = new List<string>() { "Venice", "Pisa", "Rome", "Naples", "Bari", "Geona" };
             gradovi2 = new List<string>() { "Barcelona", "Valencia", "Sevilla" };
             gradovi3 = new List<string>() { "Lille", "Touluse", "Bordeaux", "Nice", "Monaco" };
-            IDKreiranih = new List<string>();
+           
             var logger = loggerFactory.CreateLogger<KorisnikController>();
             var neo4jService = Neo4jService.CreateInMemoryService();
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -64,7 +64,7 @@ namespace KruzeriNunit
             }
             if (IDKorisnika == null)
             {
-                var korisnik = await neo4jService.RegisterAsync(new Korisnik { Ime = "KorinsikProba", Prezime = "Korisnikovic", Email = "email@gmail.com", Sifra = "korisnik123", Telefon =1234567890, DatumRodjenja="1.1.2001",Id = "",Grad="Sombor",Adresa="Sopotska,10" });
+                var korisnik = await neo4jService.RegisterAsync(new Korisnik { Ime = "KorinsikProba", Prezime = "Korisnikovic", Email = "korisnikemail@gmail.com", Sifra = "korisnik123", Telefon =1234567890, DatumRodjenja="1.1.2001",Id = "",Grad="Sombor",Adresa="Sopotska,10" });
                 IDKorisnika = korisnik.Id;
                 await neo4jService.RezervacijaAsync(IDKorisnika, ID1);
             }
@@ -105,7 +105,7 @@ namespace KruzeriNunit
             Assert.That(okResult, Is.Not.Null);
 
             var dodataPonuda = okResult.Value as Ponuda;
-            IDKreiranih.Add(dodataPonuda.Id);
+           
             Assert.That(dodataPonuda, Is.Not.Null);
 
             //id
@@ -135,7 +135,7 @@ namespace KruzeriNunit
             //opis
             Assert.That(opisPutovanja, Is.EqualTo(dodataPonuda.OpisPutovanja));
             Assert.That(dodataPonuda.OpisPutovanja.Length, Is.GreaterThanOrEqualTo(10));
-
+            await _ponudaController.ObrisiPonudu(dodataPonuda.Id);
 
         }
         [Test]
@@ -968,9 +968,7 @@ namespace KruzeriNunit
         [Test]
         public async Task TestObrisiPonuduReturnsOkObjectResult()
         {
-            foreach(var PonudaID in IDKreiranih)
-            {
-                var result = await _ponudaController.ObrisiPonudu(PonudaID);
+             var result = await _ponudaController.ObrisiPonudu(ID3);
 
                 Assert.That(result, Is.Not.Null);
                 Assert.That(result, Is.TypeOf<OkObjectResult>());
@@ -981,7 +979,7 @@ namespace KruzeriNunit
                 var poruka = okResult.Value as string;
                 Assert.That(poruka, Is.Not.Null.And.Contains("Uspesno obrisana ponuda."));
 
-            }
+            
         }
         [Test]
         public async Task TestObrisiPonuduReturnsBadRequestNull()

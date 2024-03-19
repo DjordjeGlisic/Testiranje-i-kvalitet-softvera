@@ -32,6 +32,8 @@ public class KorisnikController : ControllerBase
                 return BadRequest("Email mora sadrzati @gmail");
             if (korisnik.Telefon.ToString().Length < 10)
                 return BadRequest("Broj telefona treba da se sastoji od 10 cifara");
+            if (korisnik.Email.Contains("korisnik")==false&&korisnik.Email.Contains("admin")==false)
+                return BadRequest("Email korisnika koji se dodaje mora da sadrzi rec korisnik ili admin");
             var result=await _neo4jService.RegisterAsync(korisnik);
             return Ok(result);
         }
@@ -101,8 +103,9 @@ public class KorisnikController : ControllerBase
                 return BadRequest("Email mora sadrzati @gmail");
             if (korisnik.Telefon.ToString().Length < 10)
                 return BadRequest("Broj telefona treba da se sastoji od 10 cifara");
-
-           var user= await _neo4jService.FindUserAsync(id);
+            if (korisnik.Email.Contains("korisnik") == false && korisnik.Email.Contains("admin") == false)
+                return BadRequest("Email korisnika koji se azurira mora da sadrzi rec korisnik ili admin");
+            var user= await _neo4jService.FindUserAsync(id);
             if (user == null)
                 return BadRequest("Korisnik nije pronadjen u bazi");
             var update = await _neo4jService.UpdateUserAsync(id, korisnik);

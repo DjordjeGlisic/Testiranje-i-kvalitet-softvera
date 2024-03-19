@@ -970,7 +970,7 @@ public class Neo4jService : INeo4jService
                         Id = porukaNode.Properties.ContainsKey("id") ? porukaNode.Properties["id"].As<string>() : "",
                         IdKorisnika = porukaNode.Properties.ContainsKey("idKorisnika") ? porukaNode.Properties["idKorisnika"].As<string>() : "",
                         IdAgencije = porukaNode.Properties.ContainsKey("idAgencije") ? porukaNode.Properties["idAgencije"].As<string>() : "",
-                        Datum = porukaNode.Properties.ContainsKey("datum") ? porukaNode.Properties["id"].As<string>() : "",
+                        Datum = porukaNode.Properties.ContainsKey("datum") ? porukaNode.Properties["datum"].As<string>() : "",
                        PoslataOdStraneKorisnika = porukaNode.Properties.ContainsKey("poslataOdStraneKorisnika") ? porukaNode.Properties["poslataOdStraneKorisnika"].As<bool>() : default,
                         PoslataOdStraneAgencije = porukaNode.Properties.ContainsKey("poslataOdStraneAgencije") ? porukaNode.Properties["poslataOdStraneAgencije"].As<bool>() : default,
                         Sadrzaj = porukaNode.Properties.ContainsKey("sadrzaj") ? porukaNode.Properties["sadrzaj"].As<string>() : "",
