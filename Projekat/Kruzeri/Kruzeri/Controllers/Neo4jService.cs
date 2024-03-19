@@ -412,7 +412,7 @@ public class Neo4jService : INeo4jService
             {
                 var deleteAllQuery = "MATCH (a:Agencija {id: $AgencijaID})-[rel:IMA_PONUDU]->(p:Pounda)<-[relacija:IMA_REZERVACIJU]-(k:Korisnik) DETACH DELETE relacija,rel,p";
                 await tx.RunAsync(deleteAllQuery, new { AgencijaID = AgencijaID });
-                var deleteKorisnikQuery = "MATCH (k:Korisnik)-[rel1:SALJE_PORUKU]->(po:Poruka)<-[rel2:SALJE_PORUKU]-(a:Agencija{id:$AgencijaID}) DETACH DELETE rel1,rel2";
+                var deleteKorisnikQuery = "MATCH (k:Korisnik)-[rel1:SADRZI_PORUKU]->(po:Poruka)<-[rel2:SADRZI_PORUKU]-(a:Agencija{id:$AgencijaID}) DETACH DELETE rel1,rel2";
                 await tx.RunAsync(deleteKorisnikQuery, new { AgencijaID = AgencijaID });
 
                 
