@@ -4,8 +4,6 @@ using System;
 using Microsoft.Playwright;
 using System.Runtime.Intrinsics.X86;
 using Microsoft.Extensions.Configuration;
-using Kruzeri.Controllers;
-using Kruzeri.Models;
 
 
 namespace KruzeriPlayWright

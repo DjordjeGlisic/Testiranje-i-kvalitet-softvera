@@ -19,10 +19,6 @@
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Kruzeri">
-      <HintPath>..\..\Kruzeri\Kruzeri\bin\Debug\net8.0\Kruzeri.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+
 
 </Project>
